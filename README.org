@@ -1,0 +1,48 @@
+* Project Buzz Quizz
+ By Jota and BuddhiLW
+
+ :PROPERTIES:
+#+PROPERTY: board-name Quizz Buzz
+#+PROPERTY: board-id 607e17ba8cff9b086d03e2f9
+#+PROPERTY: Layout-3---Quizz-Creation 607e1900f4b0a76ed941d167
+#+PROPERTY: Layout-2---Quizz-Page 607e18f74f6e6472432e9449
+#+PROPERTY: Layout-1---Here-are-your-quizzes 607e18f034a1fd1576b6667c
+#+TODO: Layout-1---Here-are-your-quizzes Layout-2---Quizz-Page Layout-3---Quizz-Creation
+#+PROPERTY: orgtrello_user_joaopedromarinsbraga 6063437774a438021b081a8e
+#+PROPERTY: orgtrello_user_pedrogomesbranquinho 5f47fc7a59e97b82679cfaed
+#+PROPERTY: :blue
+#+PROPERTY: :purple
+#+PROPERTY: :red
+#+PROPERTY: :orange
+#+PROPERTY: :yellow
+#+PROPERTY: :green
+#+PROPERTY: :green DONE
+#+PROPERTY: :yellow DOING
+#+PROPERTY: :blue TODO
+#+PROPERTY: :red JP
+#+PROPERTY: orgtrello_user_me pedrogomesbranquinho
+:END:
+
+* Layout-1---Here-are-your-quizzes Main Layout
+  :PROPERTIES:
+  :orgtrello_id: 607e210370ccab665005e5ac
+  :orgtrello_local_checksum: 30586d2e2201f0ec7d324426a9cb256f99e920a53a2d39b8a860be04604d41f7
+  :END:
+
+* Layout-2---Quizz-Page IN-PROGRESS Joy of FUN(ctional) LANGUAGES
+  :PROPERTIES:
+  :orgtrello_id: 607e20d22554653f8cc092b1
+  :orgtrello_local_checksum: 8d099b7de4923c482c54b6e814b3d6570660faca5930d8156340433288d6616b
+  :END:
+
+  - [ ] Main Obligations :PROPERTIES: {"orgtrello_id":"607e2104f89624453e4376f5","orgtrello_local_checksum":"94c53ce05dbeebefa06c1dc882a23b9c5b5d13497e271e94b9c37819b408ff2b"}
+** Auto-Scroll
+      - [ ] Auto-Scroll
+        + [ ] 2 seconds delay
+** Calculate score
+      - [ ] Automatically Calculate Score :PROPERTIES: {"orgtrello_id":"607e20d3677cfd3054ab97a9","orgtrello_local_checksum":"afb96fcc548ffaf821534dd4b009da96e73b35f674714142bb963932feeb00b9"}
+        + [ ] Round Score
+      - [ ] Change Layout on score 
+** Restart Quizz
+  - [ ] Upon reset, scroll to the beginning 
+
