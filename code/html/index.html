@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +10,47 @@
 
     <title>BuzzQuizz</title>
 
-</head>
-<body>
+  </head>
 
-    <div class="header"><p>BuzzQuizz</p></div>
-    <div class="quizz-container"><div class="first-quizz-box">Você não criou nenhum</br>quizz ainda :(<button>Criar Quizz</button></div>
-    <div class="quizz-title">Todos os Quizzes</div>
-        <div class="quizz"><div class="quizz-image"><div class="quizz-description">Teste: testando se a imagem fica com fundo degrade</div></div></div>
+  <body>
+
+    <div class="header">
+      <p>BuzzQuizz</p>
     </div>
+    <div class="quizz-container">
+      <!-- begin quizz container -->
+      <div class="first-quizz-box">Você não criou nenhum</br>quizz
+	ainda :( <button>Criar Quizz</button></div>
+
+      <div class="quizz-title">Todos os Quizzes</div>
+
+      <div class="quizzes">
+
+	<!-- quizz n1 -->
+	<div class="quizz">
+          <div class="quizz-image">
+            <div class="quizz-description">Teste: testando se a imagem fica com fundo degrade</div>
+          </div>
+	</div>
+	<!-- quizz n1 end -->
+
+	<!-- quizz n2 -->
+	<div class="quizz">
+          <div class="quizz-image">
+            <div class="quizz-description">Teste: testando se a imagem fica com fundo degrade</div>
+          </div>
+	</div>
+	<!-- quizz n2 end -->
+	
+      </div>
+    </div>
+    <!-- end quizz container -->
+</div>
+    
 
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="scripts/script.js"></script>    
-</body>
+    <script src="scripts/script.js"></script>
+  </body>
+
 </html>

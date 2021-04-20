@@ -1,78 +1,99 @@
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');  
-  * {
-      box-sizing: border-box;
-  }
-  body {
-      font-family: "Roboto";
-      background: #fafafa;
-  }
-  .header {
-      height: 69px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.10), 0 6px 20px 0 rgba(0, 0, 0, 0.09);     
-      background-color: #EC362D;
-  }
-  .header p{
-      color: #fff;
-      font-weight: bold;
-      font-size: 37px;      
-  }
-  .quizz-container{
-      padding-left: 18px;
-      padding-right: 17px;
-      margin-top: 69px;
-  }
-  .first-quizz-box{
-      width: 340;
-      height: 181px;
-      margin-top: 100px;
-      border: 1px #d4d4d4 dashed;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: space-evenly;   
-      text-align: center;  
-      color: #B9B9B9; 
-  }
-  .first-quizz-box button{
-      width: 151px;
-      height: 40px;
-      border-radius: 50px;
-      font-size: 21px;
-      background: #fafafa;
-      border: #EC362D 1px dashed;
-      color: #EC362D;
-  }
-  .quizz-title{
-      font-weight: bold;
-      color: #000;
-      margin-top: 38px;
-      margin-bottom: 14px;
-      text-align: left;
-      font-size: 20px;
-  }
-  .quizz-image{
-      width: 340px;
-      height: 181px;      
-      position: relative;
-      border-radius: 5px;
-      background: linear-gradient(to bottom, transparent, #000), url("https://aventurasnahistoria.uol.com.br/media/_versions/entretenimento/simpsons_capa_widelg.jpg");
-      background-position: center center;
-      background-size: 100%;
-      margin-bottom: 14px;
-  }
-  .quizz-description{
-      color: #fff;
-      font-size: 19px;
-      position: absolute;
-      top: 120px;
-      text-align: center;
-      word-wrap: break-word;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto";
+    background: #fafafa;
+}
+
+.header {
+    height: 69px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.10), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
+    background-color: #EC362D;
+}
+
+.header p {
+    color: #fff;
+    font-weight: bold;
+    font-size: 37px;
+}
+
+.quizz-container {
+    padding-left: 18px;
+    padding-right: 17px;
+    margin-top: 69px;
+}
+
+.first-quizz-box {
+    width: 340;
+    height: 181px;
+    margin-top: 100px;
+    border: 1px #d4d4d4 dashed;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+    color: #B9B9B9;
+}
+
+.first-quizz-box button {
+    width: 151px;
+    height: 40px;
+    border-radius: 50px;
+    font-size: 21px;
+    background: #fafafa;
+    border: #EC362D 1px dashed;
+    color: #EC362D;
+}
+
+.quizzes{
+    width: 100%;
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.quizz{
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+.quizz-title {
+    font-weight: bold;
+    color: #000;
+    margin-top: 38px;
+    margin-bottom: 14px;
+    text-align: left;
+    font-size: 20px;
+}
+
+.quizz-image {
+    width: 340px;
+    height: 181px;
+    position: relative;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, transparent, #000), url("https://aventurasnahistoria.uol.com.br/media/_versions/entretenimento/simpsons_capa_widelg.jpg");
+    background-position: center center;
+    background-size: 100%;
+    margin-bottom: 14px;
+}
+
+.quizz-description {
+    color: #fff;
+    font-size: 19px;
+    position: absolute;
+    top: 120px;
+    text-align: center;
+    word-wrap: break-word;
+}
