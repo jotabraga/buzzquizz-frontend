@@ -34,13 +34,12 @@
   :orgtrello_id: 607e20d22554653f8cc092b1
   :orgtrello_local_checksum: 8d099b7de4923c482c54b6e814b3d6570660faca5930d8156340433288d6616b
   :END:
-
-  - [ ] Main Obligations :PROPERTIES: {"orgtrello_id":"607e2104f89624453e4376f5","orgtrello_local_checksum":"94c53ce05dbeebefa06c1dc882a23b9c5b5d13497e271e94b9c37819b408ff2b"}
+  - [ ] Main Obligations  
 ** Auto-Scroll
       - [ ] Auto-Scroll
         + [ ] 2 seconds delay
 ** Calculate score
-      - [ ] Automatically Calculate Score :PROPERTIES: {"orgtrello_id":"607e20d3677cfd3054ab97a9","orgtrello_local_checksum":"afb96fcc548ffaf821534dd4b009da96e73b35f674714142bb963932feeb00b9"}
+      - [ ] Automatically Calculate Score 
         + [ ] Round Score
       - [ ] Change Layout on score 
 ** Restart Quizz
