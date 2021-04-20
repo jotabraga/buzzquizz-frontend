@@ -16,7 +16,6 @@ In =code= we find our code-base. And, in =resources= we store images, icons, fon
   `-- resources
 #+end_src
 
-
 ** Layout 1
 Worked out in conjunction.
 
@@ -24,6 +23,7 @@ Worked out in conjunction.
 LW
 
 *** JS
+
 **** Common functions (query, queryAll, listen);
 Here we define these in a functional way, and give an example code.
 #+begin_src js
@@ -38,16 +38,38 @@ Here we define these in a functional way, and give an example code.
 #+end_src
 
 **** Change opacity, if one is selected
-***** Query all images in the =q1= (atomic-quizz 1).
+***** Query all images in the =q  cards.forEach((card) => {
+      card.addEventListener("click", selectCard);
+  });
+
+  let activateListeners = atomicQuizzDOM => {
+      atomicQuizzDOM.forEach((card) => {
+          card.addEventListener("click", selectCard);
+      });
+  } 
+1= (atomic-quizz 1).
 #+begin_src js
   const cards = document.querySelectorAll("div.quizz.screen2#q1 div.img");
  #+end_src
 
 ***** Put listeners in the (selectec atomic-)quizz cards
+****** TODO create a function which selects all the atomic-quizzes and apply activate listeners.
 #+begin_src js
   cards.forEach((card) => {
       card.addEventListener("click", selectCard);
   });
+
+  let activateListeners = atomicQuizzDOM => {
+      atomicQuizzDOM.forEach((card) => {
+          card.addEventListener("click", selectCard);
+      });
+  };
+
+  let deactivateListeners = atomicQuizzDOM => {
+      atomicQuizzDOM.forEach((card) => {
+          card.removeEventListener("click", selectCard);
+      });
+  };
 #+end_src
 
 ***** Function which toggles one unique element, in selected group.
@@ -59,24 +81,43 @@ Here we define these in a functional way, and give an example code.
   let lastNode = node => node.lastElementChild;
 #+end_src 
 
-******  Toggler logic, targeting the existence of h2 (subtitle).
+****** Toggle image and subtitle visibility of the card (subtitle toggle not requied)
+The condition of toggability is that the card have a header (subtitle explaining it)
+#+begin_src js 
+  let toggleOpacity = card => {
+      if (lastNode(card) !== null) {
+          addClass(card)("hidden-opacity");
+          addClass(lastNode(card))("hidden-name");
+      }
+  };
+
+  let untoggleOpacity = (e) => {
+      addClass(e)("card-border");
+      removeClass(e)("hidden-opacity");
+      removeClass(lastNode(e))("hidden-name");
+  };
+#+end_src
+
+******  Toggler logic
+        + The existence condition to the funtion to work is the existence of h2 (subtitle).
+        + Add  this line, in the forEach statement, in case you want to habilitate other cards's selection: =card.classList.remove("card-border");=.
+In plain English, as the function receives an element (a query selected one), it:
+1. Creates an array out of it, so to operate on it.
+2. Toggle opacity to every card.
+3. Untoggles the selected card.
+4. Deactivate the Listeners, thus locking the card selection.  
+
 #+begin_src js
   function selectCard(e) {
       const children = Array.from(this.parentElement.children);
-      children.forEach((card) => {
-          card.classList.remove("opaque");
-          // console.log(lastNode(card));
-          if (card.lastElementChild) {
-              addClass(card)("hidden");
-              addClass(lastNode(card))("hidden-name");
-          }
-      });
-      addClass(this)("opaque");
-      removeClass(this)("hidden");
-      removeClass(lastNode(this))("hidden-name");
+      children.forEach((card) => toggleOpacity(card));
+      untoggleOpacity(this);
+      deactivateListeners(children);
   };
 #+end_src
-***** Populate Atomic-Quizzes
+
+
+***** Populate Atomic-Quiz
 
 *** HTML
 + I will use mainly the core header layout from index.html
@@ -143,6 +184,7 @@ Here we define these in a functional way, and give an example code.
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
   <div class="score hidden"></div>
 #+end_src
+
 ***** Foot (scripts)
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
   <script src="../js/quizz-game.js"></script>
@@ -258,15 +300,17 @@ CLOSED: [2021-04-20 Tue 15:41]
 - State "DONE"       from "NEXT"       [2021-04-20 Tue 12:10]
 :END:
 #+begin_src css :tangle ./code/css/quizz.css
-  .hidden {
+  .hidden-opacity {
       opacity: 0.5;
       transition: opacity 0.4s ease-in-out;
   }
+
   .hidden-name {
       opacity: 0;
       transition: opacity 0.4s ease-in-out;
   }
-  .opaque {
+
+  .card-border {
       border: 2px solid orange;
       transition: border 0.4s ease-in-out;
   }

@@ -13,21 +13,38 @@ cards.forEach((card) => {
     card.addEventListener("click", selectCard);
 });
 
+let activateListeners = atomicQuizzDOM => {
+    atomicQuizzDOM.forEach((card) => {
+        card.addEventListener("click", selectCard);
+    });
+};
+
+let deactivateListeners = atomicQuizzDOM => {
+    atomicQuizzDOM.forEach((card) => {
+        card.removeEventListener("click", selectCard);
+    });
+};
+
 let addClass = e => c => e.classList.add(c);
 let removeClass = e => c => e.classList.remove(c);
 let lastNode = node => node.lastElementChild;
 
+let toggleOpacity = card => {
+    if (lastNode(card) !== null) {
+        addClass(card)("hidden-opacity");
+        addClass(lastNode(card))("hidden-name");
+    }
+};
+
+let untoggleOpacity = (e) => {
+    addClass(e)("card-border");
+    removeClass(e)("hidden-opacity");
+    removeClass(lastNode(e))("hidden-name");
+};
+
 function selectCard(e) {
     const children = Array.from(this.parentElement.children);
-    children.forEach((card) => {
-        card.classList.remove("opaque");
-        // console.log(lastNode(card));
-        if (card.lastElementChild) {
-            addClass(card)("hidden");
-            addClass(lastNode(card))("hidden-name");
-        }
-    });
-    addClass(this)("opaque");
-    removeClass(this)("hidden");
-    removeClass(lastNode(this))("hidden-name");
+    children.forEach((card) => toggleOpacity(card));
+    untoggleOpacity(this);
+    deactivateListeners(children);
 };
