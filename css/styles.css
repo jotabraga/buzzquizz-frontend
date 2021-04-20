@@ -1,2 +1,30 @@
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
   
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+  * {
+      box-sizing: border-box;
+  }
+  body {
+      font-family: "Roboto";
+  }
+  .header {
+      height: 69px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.10), 0 6px 20px 0 rgba(0, 0, 0, 0.09);     
+      background: #EC362D;
+  }
+  .header p{
+      color: #fff;
+      font-weight: bold;
+      font-size: 37px;      
+  }
+  .quizz-container{
+      background: #e5e5e5;
+      padding-left: 18px;
+      padding-right: 17px;
+  }
