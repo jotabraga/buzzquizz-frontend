@@ -10,22 +10,24 @@ var images = querierAll("div.quizz.screen2#q1 div.img"); //=> element
 const cards = document.querySelectorAll("div.quizz.screen2#q1 div.img");
 
 cards.forEach((card) => {
-    card.addEventListener("click", productSelect);
+    card.addEventListener("click", selectCard);
 });
 
+let addClass = e => c => e.classList.add(c);
+let removeClass = e => c => e.classList.remove(c);
+let lastNode = node => node.lastElementChild;
 
-function productSelect(e) {
+function selectCard(e) {
     const children = Array.from(this.parentElement.children);
-    console.log(children);
-
     children.forEach((card) => {
         card.classList.remove("opaque");
+        // console.log(lastNode(card));
         if (card.lastElementChild) {
-            card.classList.add("hidden");
+            addClass(card)("hidden");
+            addClass(lastNode(card))("hidden-name");
         }
     });
-
-    this.classList.add("opaque");
-    this.classList.remove("hidden");
+    addClass(this)("opaque");
+    removeClass(this)("hidden");
+    removeClass(lastNode(this))("hidden-name");
 };
-// listen(images[0])("click")(productSelect);
