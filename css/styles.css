@@ -6,9 +6,11 @@
   }
   body {
       font-family: "Roboto";
+      background: #fafafa;
   }
   .header {
       height: 69px;
+      width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,7 +18,7 @@
       top: 0;
       left: 0;
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.10), 0 6px 20px 0 rgba(0, 0, 0, 0.09);     
-      background: #EC362D;
+      background-color: #EC362D;
   }
   .header p{
       color: #fff;
@@ -24,7 +26,35 @@
       font-size: 37px;      
   }
   .quizz-container{
-      background: #e5e5e5;
       padding-left: 18px;
       padding-right: 17px;
+      margin-top: 69px;
+  }
+  .first-quizz-box{
+      width: auto;
+      height: 181px;
+      margin-top: 100px;
+      border: 1px #d4d4d4 dashed;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;   
+      align-items: center;  
+      color: #B9B9B9; 
+  }
+  .first-quizz-box button{
+      width: 151px;
+      height: 40px;
+      border-radius: 50px;
+      background: #fafafa;
+      border: #EC362D 1px dashed;
+      color: #EC362D;
+  }
+  .quizz-title{
+      font-weight: bold;
+      color: #000;
+      margin-top: 38px;
+      margin-bottom: 14px;
+      text-align: left;
+      font-size: 20px;
   }
