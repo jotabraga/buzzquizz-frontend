@@ -1,6 +1,4 @@
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-
-  
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');  
   * {
       box-sizing: border-box;
   }
@@ -31,21 +29,23 @@
       margin-top: 69px;
   }
   .first-quizz-box{
-      width: auto;
+      width: 340;
       height: 181px;
       margin-top: 100px;
       border: 1px #d4d4d4 dashed;
       border-radius: 5px;
       display: flex;
+      align-items: center;
       flex-direction: column;
       justify-content: space-evenly;   
-      align-items: center;  
+      text-align: center;  
       color: #B9B9B9; 
   }
   .first-quizz-box button{
       width: 151px;
       height: 40px;
       border-radius: 50px;
+      font-size: 21px;
       background: #fafafa;
       border: #EC362D 1px dashed;
       color: #EC362D;
@@ -57,4 +57,22 @@
       margin-bottom: 14px;
       text-align: left;
       font-size: 20px;
+  }
+  .quizz-image{
+      width: 340px;
+      height: 181px;      
+      position: relative;
+      border-radius: 5px;
+      background: linear-gradient(to bottom, transparent, #000), url("https://aventurasnahistoria.uol.com.br/media/_versions/entretenimento/simpsons_capa_widelg.jpg");
+      background-position: center center;
+      background-size: 100%;
+      margin-bottom: 14px;
+  }
+  .quizz-description{
+      color: #fff;
+      font-size: 19px;
+      position: absolute;
+      top: 120px;
+      text-align: center;
+      word-wrap: break-word;
   }
