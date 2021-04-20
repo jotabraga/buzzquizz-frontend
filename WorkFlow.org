@@ -29,10 +29,10 @@
 * Layout-2---Quizz-Page Main Obligations                                :blue:purple:
   :PROPERTIES:
   :orgtrello_id: 607ec8a627eca00933b4362e
-  :orgtrello_local_checksum: cd1faeb3502dc83e28ac4f25a21822c4bbb4337c504760f256894b0381433a76
+  :orgtrello_local_checksum: 67e8d20fe8700fd6d4d818c0a5e468e2adb052728c1b88f847d1170d581d8ae3
   :END:
 
-    - [-] No topo do quizz, deve ser exibido um banner com a imagem e o título do quizz. A imagem deve estar escurecida com uma camada preta de 60% de opacidade.
+    - [X] No topo do quizz, deve ser exibido um banner com a imagem e o título do quizz. A imagem deve estar escurecida com uma camada preta de 60% de opacidade.
     - [-] As respostas de cada pergunta devem ser exibidas organizadas aleatoriamente
     - [-] Ao clicar em uma resposta, as demais devem ganhar o efeito "esbranquiçado" do layout
     - [-] Não deve ser possível alterar a resposta após a escolha

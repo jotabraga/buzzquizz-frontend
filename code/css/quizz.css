@@ -22,6 +22,7 @@
 
 .quizzes.screen2 {
     width: 60vw;
+  height:100vhw;
     display: flex;
     flex-direction: column;
     margin: 42px auto 0px auto;
@@ -52,7 +53,7 @@
 }
 
 .quizz .img {
-    width: calc(50% - 25px );
+    width: calc(50% - 25px);
     margin: 18px 0px;
 }
 
@@ -69,4 +70,12 @@
     font-weight: 700;
 }
 
+.hidden {
+    opacity: 0.5;
+    transition: opacity 0.4s ease-in-out;
+}
 
+.opaque {
+  border: 2px solid orange;
+  transition: border 0.4s ease-in-out;
+}
