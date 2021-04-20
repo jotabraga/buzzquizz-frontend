@@ -76,6 +76,8 @@ body {
     margin-bottom: 14px;
     text-align: left;
     font-size: 20px;
+    display: flex;
+    align-items: center;
 }
 
 .quizz-image {
@@ -97,3 +99,15 @@ body {
     text-align: center;
     word-wrap: break-word;
 }
+
+.hidden{
+    display: none;
+}
+
+ion-icon{
+    font-size: 30px;
+    color: #EC362D;
+    margin-left: 188px;
+}
+
+
