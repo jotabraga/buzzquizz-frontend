@@ -1,5 +1,4 @@
 #+AUTHOR: BuddhiLW and JP
-#+STARTUP: latexpreview
 #+PROPERTY: header-args:js :tangle ./code/js/quizz-game.js :mkdirp yes
 
 * Project Buzz Quizz
@@ -53,20 +52,36 @@ LW
         <p>BuzzQuizz</p>
     </div>
 #+end_src
-***** Quizz logo header
+***** Quizz-logo header
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
   <div class="quizz-logo">
-      <img alt="" src="https://d1fs8ljxwyzba6.cloudfront.net/assets/article/2018/01/18/harry-potter-hogwarts-mystery_feature.jpg" />
+      <h1>Logo</h1>
   </div>
 #+end_src
 
 ***** Populate with question-quizzes 
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
   <div class="quizzes screen2">
-      <div class="quizz screen2"></div>
+    <h1>Some aleatory question</h1>
+    <div class="quizz screen2">
+      <div class="img">
+        <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+        <h2>A horse</h2>
+      </div>
+      <div class="img">
+        <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+        <h2>A horse</h2>
+      </div>
+      <div class="img">
+        <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /><h2>A horse</h2>
+      </div>
+      <div class="img">
+        <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /><h2>A horse</h2>
+      </div>
+
+    </div>
   </div>
 #+end_src
-
 ***** Togglable score
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
   <div class="score hidden"></div>
@@ -75,15 +90,111 @@ LW
 
 
 *** CSS
-
+**** DONE Quizz-logo header (first requisite)
+CLOSED: [2021-04-20 Tue 11:23]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-20 Tue 11:23]
+:END:
 #+begin_src css :tangle ./code/css/quizz.css  :mkdirp yes
   .quizz-logo {
+      display: flex;
+      justify-content: center;
       margin-top: 69px;
-  }
-
-  .quizz-logo img {
       height: 142px;
       width: 100%;
+      background-color: rgb(0, 0, 0, 0.6);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-image: url("https://static1.srcdn.com/wordpress/wp-content/uploads/2020/05/HP-Hogwarts-Featured.jpg");
       object-fit: cover;
+      opacity: 0.8;
   }
+
+  .quizz-logo h1 {
+      color: #fff;
+      font-size: 10vh;
+      text-align: center;
+      margin: auto 0;
+      font-weight: 400;
+  }
+
+#+end_src
+
+**** DONE Div containing a atomic-quizz
+CLOSED: [2021-04-20 Tue 12:10]
+:LOGBOOK:
+- Note taken on [2021-04-20 Tue 12:26] \\
+  Size internal images to fit the hole header
+- State "DONE"       from "NEXT"       [2021-04-20 Tue 12:10]
+:END:
+***** DONE Exterior divs partitions and margins
+CLOSED: [2021-04-20 Tue 12:25]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-20 Tue 12:25]
+:END:
+#+begin_src css :tangle ./code/css/quizz.css
+  .quizzes.screen2 {
+      width: 60vw;
+      display: flex;
+      flex-direction: column;
+      margin: 42px auto 0px auto;
+      justify-content: center;
+  }
+
+  .quizz.screen2 {
+      width: 90%;
+      height: 30vw;
+      margin: auto auto 42px auto;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+  }
+#+end_src
+
+***** DONE Display of elements inside the atomic-quizz
+CLOSED: [2021-04-20 Tue 12:25]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-20 Tue 12:25]
+:END:
+#+begin_src css :tangle ./code/css/quizz.css
+  .quizzes.screen2 h1 {
+      color: #fff;
+      background-color: red;
+      width: 90%;
+      margin: auto;
+      height: 10vh;
+      font-size: 3vh;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+
+  .quizz .img {
+      width: calc(50% - 25px);
+      margin: 18px 0px;
+  }
+
+  .quizz .img:nth-child(odd) {
+      margin-right: 50px;
+  }
+
+  .quizz .img img {
+      width: 100%;
+  }
+
+  .quizz .img h2 {
+      margin: 6px auto 0px 0px;
+      font-weight: 700;
+  }
+#+end_src
+
+**** TODO Click on image effect  (Third requisite)
+:LOGBOOK:
+- State "DONE"       from "BACKLOG"    [2021-04-20 Tue 12:10]
+- State "DONE"       from "NEXT"       [2021-04-20 Tue 12:10]
+:END:
+#+begin_src css :tangle ./code/css/quizz.css
+
 #+end_src

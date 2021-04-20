@@ -1,9 +1,72 @@
 .quizz-logo {
+    display: flex;
+    justify-content: center;
     margin-top: 69px;
-}
-
-.quizz-logo img {
     height: 142px;
     width: 100%;
+    background-color: rgb(0, 0, 0, 0.6);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("https://static1.srcdn.com/wordpress/wp-content/uploads/2020/05/HP-Hogwarts-Featured.jpg");
     object-fit: cover;
+    opacity: 0.8;
 }
+
+.quizz-logo h1 {
+    color: #fff;
+    font-size: 10vh;
+    text-align: center;
+    margin: auto 0;
+    font-weight: 400;
+}
+
+.quizzes.screen2 {
+    width: 60vw;
+    display: flex;
+    flex-direction: column;
+    margin: 42px auto 0px auto;
+    justify-content: center;
+}
+
+.quizz.screen2 {
+    width: 90%;
+    height: 30vw;
+    margin: auto auto 42px auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.quizzes.screen2 h1 {
+    color: #fff;
+    background-color: red;
+    width: 90%;
+    margin: auto;
+    height: 10vh;
+    font-size: 3vh;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.quizz .img {
+    width: calc(50% - 25px );
+    margin: 18px 0px;
+}
+
+.quizz .img:nth-child(odd) {
+    margin-right: 50px;
+}
+
+.quizz .img img {
+    width: 100%;
+}
+
+.quizz .img h2 {
+    margin: 6px auto 0px 0px;
+    font-weight: 700;
+}
+
+
