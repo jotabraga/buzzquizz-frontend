@@ -9,9 +9,8 @@
   .header {
       height: 69px;
       width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      text-align: center;
+      line-height: 69px;
       position: fixed;
       top: 0;
       left: 0;
@@ -75,4 +74,7 @@
       top: 120px;
       text-align: center;
       word-wrap: break-word;
+  }
+  .hidden {
+      display: none;
   }
