@@ -1,0 +1,9 @@
+.quizz-logo {
+    margin-top: 69px;
+}
+
+.quizz-logo img {
+    height: 142px;
+    width: 100%;
+    object-fit: cover;
+}
