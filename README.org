@@ -24,6 +24,46 @@ Worked out in conjunction.
 LW
 
 *** JS
+
+**** Common functions (query, queryAll, listen);
+Here we define these in a functional way, and give an example code.
+#+begin_src js
+  let querier = c => document.querySelector(c);
+  let querierAll = c => document.querySelectorAll(c);
+  let listen = element => event => f => element.addEventListener(event, f);
+
+  let hello = () => console.log("Hello, I'm listening");
+
+  var images = querierAll("div.quizz.screen2#q1 div.img"); //=> element
+  // listen(images[1])("click")(hello);
+#+end_src
+
+**** Change opacity, if one is selected
+#+begin_src js
+  const cards = document.querySelectorAll("div.quizz.screen2#q1 div.img");
+
+  cards.forEach((card) => {
+      card.addEventListener("click", productSelect);
+  });
+
+
+  function productSelect(e) {
+      const children = Array.from(this.parentElement.children);
+      console.log(children);
+
+      children.forEach((card) => {
+          card.classList.remove("opaque");
+          if (card.lastElementChild) {
+              card.classList.add("hidden");
+          }
+      });
+
+      this.classList.add("opaque");
+      this.classList.remove("hidden");
+  };
+  // listen(images[0])("click")(productSelect);
+#+end_src
+
 *** HTML
 + I will use mainly the core header layout from index.html
 **** Header (imports and metadata)
@@ -62,33 +102,38 @@ LW
 ***** Populate with question-quizzes 
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
   <div class="quizzes screen2">
-    <h1>Some aleatory question</h1>
-    <div class="quizz screen2">
-      <div class="img">
-        <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-        <h2>A horse</h2>
+      <h1>Some aleatory question</h1>
+      <!-- begin first quizz -->
+      <div class="quizz screen2" id="q1">
+          <div class="img" id="op1">
+              <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+              <h2>A horse</h2>
+          </div>
+          <div class="img" id="op2">
+              <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+              <h2>A horse</h2>
+          </div>
+          <div class="img" id="op3">
+              <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+              <h2>A horse</h2>
+          </div>
+          <div class="img" id="op4">
+              <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+              <h2>A horse</h2>
+          </div>
+          <!-- end first quizz -->
       </div>
-      <div class="img">
-        <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-        <h2>A horse</h2>
-      </div>
-      <div class="img">
-        <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /><h2>A horse</h2>
-      </div>
-      <div class="img">
-        <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /><h2>A horse</h2>
-      </div>
-
-    </div>
   </div>
 #+end_src
 ***** Togglable score
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
   <div class="score hidden"></div>
+#+end_src
+***** Foot (scripts)
+#+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
+  <script src="../js/quizz-game.js"></script>
   </body>
 #+end_src
-
-
 *** CSS
 **** DONE Quizz-logo header (first requisite)
 CLOSED: [2021-04-20 Tue 11:23]
@@ -135,6 +180,7 @@ CLOSED: [2021-04-20 Tue 12:25]
 #+begin_src css :tangle ./code/css/quizz.css
   .quizzes.screen2 {
       width: 60vw;
+    height:100vhw;
       display: flex;
       flex-direction: column;
       margin: 42px auto 0px auto;
@@ -196,5 +242,15 @@ CLOSED: [2021-04-20 Tue 12:25]
 - State "DONE"       from "NEXT"       [2021-04-20 Tue 12:10]
 :END:
 #+begin_src css :tangle ./code/css/quizz.css
+  .hidden {
+      opacity: 0.5;
+      transition: opacity 0.4s ease-in-out;
+  }
 
+  .opaque {
+    border: 2px solid orange;
+    transition: border 0.4s ease-in-out;
+  }
 #+end_src
+
+** Layout3
