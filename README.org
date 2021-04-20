@@ -1,47 +1,89 @@
+#+AUTHOR: BuddhiLW and JP
+#+STARTUP: latexpreview
+#+PROPERTY: header-args:js :tangle ./code/js/quizz-game.js :mkdirp yes
+
 * Project Buzz Quizz
  By Jota and BuddhiLW
 
- :PROPERTIES:
-#+PROPERTY: board-name Quizz Buzz
-#+PROPERTY: board-id 607e17ba8cff9b086d03e2f9
-#+PROPERTY: Layout-3---Quizz-Creation 607e1900f4b0a76ed941d167
-#+PROPERTY: Layout-2---Quizz-Page 607e18f74f6e6472432e9449
-#+PROPERTY: Layout-1---Here-are-your-quizzes 607e18f034a1fd1576b6667c
-#+TODO: Layout-1---Here-are-your-quizzes Layout-2---Quizz-Page Layout-3---Quizz-Creation
-#+PROPERTY: orgtrello_user_joaopedromarinsbraga 6063437774a438021b081a8e
-#+PROPERTY: orgtrello_user_pedrogomesbranquinho 5f47fc7a59e97b82679cfaed
-#+PROPERTY: :blue
-#+PROPERTY: :purple
-#+PROPERTY: :red
-#+PROPERTY: :orange
-#+PROPERTY: :yellow
-#+PROPERTY: :green
-#+PROPERTY: :green DONE
-#+PROPERTY: :yellow DOING
-#+PROPERTY: :blue TODO
-#+PROPERTY: :red JP
-#+PROPERTY: orgtrello_user_me pedrogomesbranquinho
-:END:
+** About the Buzz Quizz folder-structure
 
-* Layout-1---Here-are-your-quizzes Main Layout
-  :PROPERTIES:
-  :orgtrello_id: 607e210370ccab665005e5ac
-  :orgtrello_local_checksum: 30586d2e2201f0ec7d324426a9cb256f99e920a53a2d39b8a860be04604d41f7
-  :END:
+In =code= we find our code-base. And, in =resources= we store images, icons, fonts etc used in the project.
+#+begin_src shell
+  .
+  |-- code
+  |   |-- css
+  |   |-- html
+  |   `-- js
+  `-- resources
+#+end_src
 
-* Layout-2---Quizz-Page IN-PROGRESS Joy of FUN(ctional) LANGUAGES
-  :PROPERTIES:
-  :orgtrello_id: 607e20d22554653f8cc092b1
-  :orgtrello_local_checksum: 8d099b7de4923c482c54b6e814b3d6570660faca5930d8156340433288d6616b
-  :END:
-  - [ ] Main Obligations  
-** Auto-Scroll
-      - [ ] Auto-Scroll
-        + [ ] 2 seconds delay
-** Calculate score
-      - [ ] Automatically Calculate Score 
-        + [ ] Round Score
-      - [ ] Change Layout on score 
-** Restart Quizz
-  - [ ] Upon reset, scroll to the beginning 
 
+** Layout 1
+Worked out in conjunction.
+
+** Layout 2 
+LW
+
+*** JS
+*** HTML
++ I will use mainly the core header layout from index.html
+**** Header (imports and metadata)
+#+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="../css/reset.css" class="rel">
+      <link rel="stylesheet" href="../css/styles.css" class="rel">
+      <link href="../css/quizz.css" rel="stylesheet"/>
+
+      <title>Taking the Quizz</title>
+
+  </head>
+#+end_src
+
+**** Body
+***** General header
+#+begin_src html :tangle ./code/html/screen2.html
+<body>
+    <div class="header screen2">
+        <p>BuzzQuizz</p>
+    </div>
+#+end_src
+***** Quizz logo header
+#+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
+  <div class="quizz-logo">
+      <img alt="" src="https://d1fs8ljxwyzba6.cloudfront.net/assets/article/2018/01/18/harry-potter-hogwarts-mystery_feature.jpg" />
+  </div>
+#+end_src
+
+***** Populate with question-quizzes 
+#+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
+  <div class="quizzes screen2">
+      <div class="quizz screen2"></div>
+  </div>
+#+end_src
+
+***** Togglable score
+#+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
+  <div class="score hidden"></div>
+  </body>
+#+end_src
+
+
+*** CSS
+
+#+begin_src css :tangle ./code/css/quizz.css  :mkdirp yes
+  .quizz-logo {
+      margin-top: 69px;
+  }
+
+  .quizz-logo img {
+      height: 142px;
+      width: 100%;
+      object-fit: cover;
+  }
+#+end_src

@@ -1,0 +1,118 @@
+:PROPERTIES:
+#+PROPERTY: board-name Quizz Buzz
+#+PROPERTY: board-id 607e17ba8cff9b086d03e2f9
+#+PROPERTY: Layout-3---Quizz-Creation 607e1900f4b0a76ed941d167
+#+PROPERTY: Layout-2---Quizz-Page 607e18f74f6e6472432e9449
+#+PROPERTY: Layout-1---Here-are-your-quizzes 607e18f034a1fd1576b6667c
+#+TODO: Layout-1---Here-are-your-quizzes Layout-2---Quizz-Page Layout-3---Quizz-Creation
+#+PROPERTY: orgtrello_user_joaopedromarinsbraga 6063437774a438021b081a8e
+#+PROPERTY: orgtrello_user_pedrogomesbranquinho 5f47fc7a59e97b82679cfaed
+#+PROPERTY: :purple LW
+#+PROPERTY: :green DONE
+#+PROPERTY: :yellow DOING
+#+PROPERTY: :blue TO DO
+#+PROPERTY: :red JP
+#+PROPERTY: :blue
+#+PROPERTY: :purple
+#+PROPERTY: :red
+#+PROPERTY: :orange
+#+PROPERTY: :yellow
+#+PROPERTY: :green
+#+PROPERTY: orgtrello_user_me pedrogomesbranquinho
+:END:
+* Layout-1---Here-are-your-quizzes DONE                                 :red:green:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a5b37b278c3b53ade4
+  :orgtrello_local_checksum: 0e3c934e38c77f142e62744d395c4c8763e91415705b7fa15c6634966ce282e7
+  :END:
+
+* Layout-2---Quizz-Page Main Obligations                                :blue:purple:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a627eca00933b4362e
+  :orgtrello_local_checksum: cd1faeb3502dc83e28ac4f25a21822c4bbb4337c504760f256894b0381433a76
+  :END:
+
+    - [-] No topo do quizz, deve ser exibido um banner com a imagem e o título do quizz. A imagem deve estar escurecida com uma camada preta de 60% de opacidade.
+    - [-] As respostas de cada pergunta devem ser exibidas organizadas aleatoriamente
+    - [-] Ao clicar em uma resposta, as demais devem ganhar o efeito "esbranquiçado" do layout
+    - [-] Não deve ser possível alterar a resposta após a escolha
+    - [-] Após escolher uma resposta, o texto das opções deve ganhar a cor vermelha ou verde, conforme layout, indicando quais eram as respostas erradas e a certa
+    - [-] Após 2 segundos de respondida, deve-se scrollar a página para a próxima pergunta
+
+* Layout-3---Quizz-Creation Layout - Basics info of Quizz (Screen 3.1)  :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a640d5066cd7d7fc37
+  :orgtrello_local_checksum: aa9c82a468210d2a1afb089d75cc2942e90d11cd0bdb84debc71c7814f104a7d
+  :END:
+
+* Layout-3---Quizz-Creation Layout - Quizz questions (Screen 3.2)       :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a88a63e3307b1f30af
+  :orgtrello_local_checksum: 934c2dcc22c27f40a4c69fdc0dce5d7fee14c552152b74c2b41eb9609b4d941e
+  :END:
+
+* Layout-3---Quizz-Creation Layout - Quizz levels (Screen 3.3)          :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a651588b6d32135e81
+  :orgtrello_local_checksum: 4d9b038dc70a330c629cca07db5e7a9ca57116b0050e5c3a37aae7606cfb78c9
+  :END:
+
+* Layout-3---Quizz-Creation Layout - Quizz success (Screen 3.4)         :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a71ddab81f597450c1
+  :orgtrello_local_checksum: ae3c35507628cd780f1ed3cf90c67bb0763c1bb9b4573f8143de29ef50d01595
+  :END:
+
+* Layout-3---Quizz-Creation Info validations - Quizz levels             :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a62fff390d87890a31
+  :orgtrello_local_checksum: e61b7fb9eb7c83e19bb4736c6acd663832d6277cca6bd04d953a03d703859420
+  :END:
+
+* Layout-3---Quizz-Creation Info validations - Quizz questions          :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a7eefcee8af9502359
+  :orgtrello_local_checksum: 89a91ee95b2ababb0cda70ed8b87efd3cb97d266865294f4ef31902e613d633f
+  :END:
+
+* Layout-3---Quizz-Creation Layout - Basics info of Quizz (Screen 3.1)  :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a67fd3410f9f252beb
+  :orgtrello_local_checksum: 5ad81617838cf1aece0f014c14f17f27f9cbd69b675af1f9ff3bb58ad004b59c
+  :END:
+
+* Layout-3---Quizz-Creation Layout - Quizz success (Screen 3.4)         :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a740240b1a25f50d72
+  :orgtrello_local_checksum: c57d8042fb32a906d17f9899e43d13809a159be82acf4c948e2038468857c8ff
+  :END:
+
+* Layout-3---Quizz-Creation Info validations - Quizz questions          :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a7a32a2d1f5a534ecd
+  :orgtrello_local_checksum: 87839ec28398222d34bc341b37b03acffb7d51d8c58b25a69f454c11a96bab53
+  :END:
+
+* Layout-3---Quizz-Creation Info validations - Basics info              :red:blue:
+  :PROPERTIES:
+  :orgtrello_id: 607ec8a708b3cd23607984fc
+  :orgtrello_local_checksum: ff989ecb45b08365543fa61984f743fddca00490bc19c5a7f10e3ca5eb10424e
+  :END:
+
+    - [-] Basics informations validation - Itens
+      - [ ] Quizz title: min = 20 and max = 65 characters
+      - [ ] URL of image: should be URL type
+      - [ ] Questions: minimum of 3 questions
+      - [ ] Levels: minimum of 2 levels
+    - [-] Quizz questions validation - itens
+    :PROPERTIES:
+    :orgtrello_id: 607e19a45f1bc96ec88d76c1
+    :orgtrello_local_checksum: bc17b5beb863cdc649b0c0035d40f0029845b2085c0ad15fed42afde63b8d6ad
+    :END:
+
+  310392d474"}
+      - [ ] Background color: should have hexadecimal (start in "#", followed by 6 hex charcteres)
+      - [ ] Question text: at minimum 20 characteres
+      - [ ] Aswer text: shouldn't be empty
+      - [ ] URL of answer pictures: URL format
+      - [ ] Mandatory: at least 1 wrong and 1 question right. It's allowed questions with 2 or 3 aswers instead 4.
