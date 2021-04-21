@@ -52,6 +52,12 @@ function selectCard(e) {
     allSelectedP(querierAll('.card-border'))(closestLi);
 };
 
+var allLi = querierAll('li');
+var allSelectedP = selected => nextLi =>
+    (selected.length === allLi.length ?
+     resultsLayout() :
+     scrollNextElement(nextLi));
+
 var scroll = e => e.scrollIntoView({behavior: "smooth"});
 
 var scrollNextElement = e => {
@@ -59,13 +65,20 @@ var scrollNextElement = e => {
     setTimeout(scrollNext, 2000);
 };
 
-var allLi = querierAll('li');
-var allSelectedP = selected => nextLi =>
-    (selected.length === allLi.length ?
-     resultsLayout() :
-     scrollNextElement(nextLi));
-
+// var
+var ul = querier('ul');
+var results = querier('.score');
+var buttonRestart = querier('.buttons .restart'); 
+var buttonHome = querier('.buttons .home'); 
 var resultsLayout = () => {
-    let alertYes = () => alert("Yes");
-    setTimeout(alertYes, 2000);
+    let hiddeQuizz = () => {addClass(ul)('hidde-page');
+                            removeClass(results)('hidde-page');
+                            scroll(results);
+                            listen(buttonRestart)('click')(restartPage);
+                            listen(buttonHome)('click')(showHome);
+                           };
+    setTimeout(hiddeQuizz, 2000);
 };
+
+var restartPage = () => location.reload();
+var showHome = () => alert("TODO: toggle visibility to home layout");
