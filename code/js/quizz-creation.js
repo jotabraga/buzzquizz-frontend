@@ -15,7 +15,7 @@ function creatTheQuizzQuestions(startCreationButton){
 function validationOfBasicInfo(title, picture, numOfQuestions, numOfLevels){
     if(title.length < 20 || title.length>65){
         alert("O titulo deve ter de 20 a 65 caracteres");
-    }else if(urlValidation(picture) !== true){
+    }else if(isURL(picture) !== true){
         alert("A imagem não está no formato de url");
     }else if (numOfQuestions < 3){
         alert("O numero minimo de perguntas é 3");
@@ -26,10 +26,15 @@ function validationOfBasicInfo(title, picture, numOfQuestions, numOfLevels){
     }
 }
 
-function urlValidation(img){
-    return true;
-    //vou ver como faz pra validar isso ainda hehe
-}
+function isURL(str) {
+    var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return pattern.test(str);
+  }
 
 function changeToQuestionCreationScreen(){
     const pageInitial = document.querySelector(".quizz-creation-screen");
