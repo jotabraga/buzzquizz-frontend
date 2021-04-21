@@ -22,20 +22,30 @@
 
 .quizzes.screen2 {
     width: 60vw;
-  height:100vhw;
     display: flex;
-    flex-direction: column;
-    margin: 42px auto 0px auto;
+    flex-direction: row;
+    margin: 42px auto 42px auto;
     justify-content: center;
 }
 
 .quizz.screen2 {
     width: 90%;
     height: 30vw;
-    margin: auto auto 42px auto;
+    margin: 14px auto 40% auto;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+}
+
+ul{
+    display:flex;
+    flex-direction:column;
+    flex-wrap: wrap;
+}
+
+li{
+    display: block;
+    /* margin-bottom:20px; */
 }
 
 .quizzes.screen2 h1 {

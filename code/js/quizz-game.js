@@ -1,5 +1,6 @@
 let querier = c => document.querySelector(c);
 let querierAll = c => document.querySelectorAll(c);
+let querierElement = e => c => e.querySelector(c);
 let listen = element => event => f => element.addEventListener(event, f);
 
 let hello = () => console.log("Hello, I'm listening");
@@ -7,7 +8,7 @@ let hello = () => console.log("Hello, I'm listening");
 var images = querierAll("div.quizz.screen2#q1 div.img"); //=> element
 // listen(images[1])("click")(hello);
 
-const cards = document.querySelectorAll("div.quizz.screen2#q1 div.img");
+const cards = document.querySelectorAll("div.quizz.screen2 div.img");
 
 cards.forEach((card) => {
     card.addEventListener("click", selectCard);
@@ -43,8 +44,28 @@ let untoggleOpacity = (e) => {
 };
 
 function selectCard(e) {
+    const closestLi = this.closest('li').nextElementSibling;
     const children = Array.from(this.parentElement.children);
     children.forEach((card) => toggleOpacity(card));
     untoggleOpacity(this);
     deactivateListeners(children);
+    allSelectedP(querierAll('.card-border'))(closestLi);
+};
+
+var scroll = e => e.scrollIntoView({behavior: "smooth"});
+
+var scrollNextElement = e => {
+    let scrollNext = () => scroll(e);
+    setTimeout(scrollNext, 2000);
+};
+
+var allLi = querierAll('li');
+var allSelectedP = selected => nextLi =>
+    (selected.length === allLi.length ?
+     resultsLayout() :
+     scrollNextElement(nextLi));
+
+var resultsLayout = () => {
+    let alertYes = () => alert("Yes");
+    setTimeout(alertYes, 2000);
 };
