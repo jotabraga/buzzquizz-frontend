@@ -12,20 +12,44 @@
 </head>
 <body>
 
-<div class="quizz-creation-screen">
-    <div class="header">
-        <p>BuzzQuizz</p>
-    </div>
-    <div class="quizz-creation-instructions"><strong>Comece pelo começo</strong></div>
-    <div class="quizz-container">
-        <input type="text" class="input-quizz-info" placeholder="Título do seu quizz"/>
-        <input type="text" class="input-quizz-info" placeholder="URl da imagem do seu quizz"/>
-        <input type="text" class="input-quizz-info" placeholder="Quantidade de perguntas do quizz"/>
-        <input type="text" class="input-quizz-info" placeholder="Quantidade de níveis do quizz"/>
-        <button class="click-to-continue">Prosseguir para criar perguntas</button>
-    </div>
-    
+
+<div class="header">
+    <p>BuzzQuizz</p>
 </div>
 
+    <div class="quizz-creation-screen">    
+        <div class="quizz-creation-instructions"><strong>Comece pelo começo</strong></div>
+        <div class="quizz-container">
+            <input type="text" class="input-quizz-info" placeholder="Título do seu quizz"/>
+            <input type="text" class="input-quizz-info" placeholder="URl da imagem do seu quizz"/>
+            <input type="text" class="input-quizz-info" placeholder="Quantidade de perguntas do quizz"/>
+            <input type="text" class="input-quizz-info" placeholder="Quantidade de níveis do quizz"/>
+            <button class="click-to-continue" onclick="creatTheQuizzQuestions(this)">Prosseguir para criar perguntas</button>
+        </div>
+    </div>
+
+
+    <div class="question-creation-screen hidden">
+        <div class="quizz-creation-instructions"><strong>Crie suas perguntas</strong></div>
+        <div class="quizz-container fill-out-questions">
+            <div class="quizz-creation-instructions"><strong>Pergunta</strong><ion-icon name="create-outline" onclick="boxResizing(this)"></ion-icon></div>
+            <input type="text" class="input-quizz-info" placeholder="Texto da pergunta"/>
+            <input type="text" class="input-quizz-info" placeholder="Cor de fundo da pergunta"/>
+            <div class="quizz-creation-instructions"><strong>Resposta correta</strong></div>
+            <input type="text" class="input-quizz-info" placeholder="Resposta correta"/>
+            <input type="text" class="input-quizz-info" placeholder="URL da imagem"/>
+            <div class="quizz-creation-instructions"><strong>Respostas incorretas</strong></div>
+            <input type="text" class="input-quizz-info" placeholder="Resposta incorreta 1"/>
+            <input type="text" class="input-quizz-info" placeholder="URL da imagem 1"/>
+            <input type="text" class="input-quizz-info" placeholder="Resposta incorreta 2"/>
+            <input type="text" class="input-quizz-info" placeholder="URL da imagem 2"/>
+            <input type="text" class="input-quizz-info" placeholder="Resposta incorreta 3"/>
+            <input type="text" class="input-quizz-info" placeholder="URL da imagem 3"/>
+        </div>    
+    </div>
+
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../js/quizz-creation.js"></script>
 </body>
 </html>
