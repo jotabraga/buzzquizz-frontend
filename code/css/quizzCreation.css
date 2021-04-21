@@ -48,6 +48,7 @@
     display: flex;  
     margin-top: 28px;
     margin-bottom: 14px;
+    justify-content: space-between;
 }
 .quizz-creation-instructions ion-icon{
     font-size: 26px;
@@ -64,6 +65,15 @@
     padding-left: 16px;
     padding-right: 18px;
     display: flex;
+    flex-direction: column;
+}
+.compacted{
+    height: 64px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;
+    display: flex;
+    align-content: initial;
     flex-direction: column;
 }
 

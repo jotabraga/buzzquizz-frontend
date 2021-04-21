@@ -41,18 +41,35 @@ function changeToQuestionCreationScreen(){
     pageInitial.classList.add("hidden");
     const pageToCreat = document.querySelector(".question-creation-screen");
     pageToCreat.classList.remove("hidden");
+    questionsFillOut();
 }
 
-function questionsFillOut(questionsAmount){
+function questionsFillOut(){
     const questionsContent = document.querySelector(".fill-out-questions");
     questionsContent.innerHTML = "";
-    for(let i=0; i<questionsAmount; i++){
 
+    for(let i=0; i < numberOfQuestions; i++){
+        
+        questionsContent.innerHTML += 
+        `<div class="question-box compacted"><div class="quizz-creation-instructions"><strong>Pergunta ${i+1}</strong><ion-icon name="create-outline" onclick="boxResizing(this)"></ion-icon></div>
+            <input type="text" class="input-quizz-info" placeholder="Texto da pergunta"/>
+            <input type="text" class="input-quizz-info" placeholder="Cor de fundo da pergunta"/>
+            <div class="quizz-creation-instructions"><strong>Resposta correta</strong></div>
+            <input type="text" class="input-quizz-info" placeholder="Resposta correta"/>
+            <input type="text" class="input-quizz-info" placeholder="URL da imagem"/>
+            <div class="quizz-creation-instructions"><strong>Respostas incorretas</strong></div>
+            <input type="text" class="input-quizz-info" placeholder="Resposta incorreta 1"/>
+            <input type="text" class="input-quizz-info" placeholder="URL da imagem 1"/>
+            <input type="text" class="input-quizz-info" placeholder="Resposta incorreta 2"/>
+            <input type="text" class="input-quizz-info" placeholder="URL da imagem 2"/>
+            <input type="text" class="input-quizz-info" placeholder="Resposta incorreta 3"/>
+            <input type="text" class="input-quizz-info" placeholder="URL da imagem 3"/></div>`;
     }
-    
-
 }
+
 function boxResizing(element){
-    const boxToResizing = element.parentNode;
-    boxResizing.classList.toggle("compacted");
+    
+    const dadElement = element.parentNode;
+    const boxToResizing = dadElement.parentNode;
+    boxToResizing.classList.toggle("compacted");    
 }
