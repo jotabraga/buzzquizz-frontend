@@ -54,9 +54,6 @@
     font-size: 26px;
     color: #000000;
 }
-.compacted {
-    overflow: hidden;
-}
 .quizz-container.fill-out-questions{
     margin-top: 21px;
     margin-bottom: 29px;
@@ -75,6 +72,13 @@
     display: flex;
     align-content: initial;
     flex-direction: column;
+}
+.question-box{
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
