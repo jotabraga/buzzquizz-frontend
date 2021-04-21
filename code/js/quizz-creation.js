@@ -2,6 +2,8 @@ let quizzTitle;
 let quizzPicture;
 let numberOfQuestions;
 let numberOfLevels;
+const questionsObject = {};
+const levelsObject = {};
 
 function creatTheQuizzQuestions(startCreationButton){
     const startCreationScreen = startCreationButton.parentNode; 
@@ -33,8 +35,8 @@ function isURL(str) {
     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
     '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    return pattern.test(str);
-  }
+    return pattern.test(str); 
+}
 
 function changeToQuestionCreationScreen(){
     const pageInitial = document.querySelector(".quizz-creation-screen");
@@ -51,7 +53,7 @@ function questionsFillOut(){
     for(let i=0; i < numberOfQuestions; i++){
         
         questionsContent.innerHTML += 
-        `<div class="question-box compacted"><div class="quizz-creation-instructions"><strong>Pergunta ${i+1}</strong><ion-icon name="create-outline" onclick="boxResizing(this)"></ion-icon></div>
+        `<div class="question-box compacted" id="${i}"><div class="quizz-creation-instructions"><strong>Pergunta ${i+1}</strong><ion-icon name="create-outline" onclick="boxResizing(this)"></ion-icon></div>
             <input type="text" class="input-quizz-info" placeholder="Texto da pergunta"/>
             <input type="text" class="input-quizz-info" placeholder="Cor de fundo da pergunta"/>
             <div class="quizz-creation-instructions"><strong>Resposta correta</strong></div>
@@ -67,9 +69,20 @@ function questionsFillOut(){
     }
 }
 
-function boxResizing(element){
-    
+function boxResizing(element){    
+
     const dadElement = element.parentNode;
     const boxToResizing = dadElement.parentNode;
     boxToResizing.classList.toggle("compacted");    
 }
+
+function getQuestionsInfo(element){
+        
+    for(let i=0; i < numberOfQuestions; i++){
+        const questionBox = document.getElementById(i);
+        console.log(questionBox);
+
+    }
+
+}
+

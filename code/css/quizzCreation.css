@@ -30,7 +30,7 @@
     margin-left: auto;
     margin-right: auto;
 }
-.click-to-continue{
+.click-to-continue, .return-to-home{
     background: #ec362d;
     color: #FFF5F4;
     font-size: 18px;
@@ -79,6 +79,19 @@
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+.question-creation-screen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.return-to-home{
+    color: #818181;
+    border: none;
+    background: #fafafa;
+}
+.hidden{
+    display: none;
 }
 
 
