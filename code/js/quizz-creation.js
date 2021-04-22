@@ -2,10 +2,11 @@ let quizzTitle;
 let quizzPicture;
 let numberOfQuestions;
 let numberOfLevels;
-const questionsObject = {};
-const levelsObject = {};
+const questionsArray = [];
+
 
 function creatTheQuizzQuestions(startCreationButton){
+    alert("teste");
     const startCreationScreen = startCreationButton.parentNode; 
     quizzTitle = startCreationScreen.children[0].value;
     quizzPicture = startCreationScreen.children[1].value;
@@ -70,19 +71,78 @@ function questionsFillOut(){
 }
 
 function boxResizing(element){    
-
     const dadElement = element.parentNode;
     const boxToResizing = dadElement.parentNode;
     boxToResizing.classList.toggle("compacted");    
 }
 
 function getQuestionsInfo(element){
-        
+            
     for(let i=0; i < numberOfQuestions; i++){
+
         const questionBox = document.getElementById(i);
-        console.log(questionBox);
 
+        for(let i=0; i < 3; i++){
+
+            const answerArray = [];
+
+            if(questionBox.children[3] !== null){
+
+                const texts = questionBox.children[3].value;
+                const picture = questionBox.children[4].value;
+                const rightAnswer;
+                
+                if(i === 0){
+                    rightAnswer = true;
+                } else {
+                    rightAnswer = false
+                }
+
+                const answer = {
+                    text: texts,
+                    image: picture,
+                    isCorrectAnswer: rightAnswer
+                }
+
+                answerArray.push(answer);
+
+            } else {
+                break;
+            }
+        }
+        const titleOf = questionBox.children[1].value;
+        const colorOf = questionBox.children[2].value;
+        const questionObj = {
+            title: titleOf,
+            color: colorOf,
+            answer: aswerArray
+        }
+        questionsArray.push(questionObj);
     }
-
+    changeToLevelsCreationScreen();             
 }
+
+function changeToLevelsCreationScreen(){
+    const pageInitial = document.querySelector(".question-creation-screen");
+    pageInitial.classList.add("hidden");
+    const pageToCreat = document.querySelector(".levels-creation-screen");
+    pageToCreat.classList.remove("hidden");
+    levelsFillOut();
+}
+
+function levelsFillOut(){
+    const questionsContent = document.querySelector(".fill-out-levels");
+    levelsContent.innerHTML = "";
+
+    for(let i=0; i < numberOfLevels; i++){
+        
+        levelsContent.innerHTML += 
+        `<div class="question-box compacted" id="l${i}"><div class="quizz-creation-instructions"><strong>Nível ${i+1}</strong><ion-icon name="create-outline" onclick="boxResizing(this)"></ion-icon></div>
+            <input type="text" class="input-quizz-info" placeholder="Título do nível"/>
+            <input type="text" class="input-quizz-info" placeholder="% de acerto mínima"/>
+            <input type="text" class="input-quizz-info" placeholder="URL da imagem do nível"/>
+            <input type="text" class="input-quizz-info description-level" placeholder="Descrição do nível"/>`;
+    }    
+}
+
 

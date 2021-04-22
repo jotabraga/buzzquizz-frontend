@@ -90,8 +90,13 @@
     border: none;
     background: #fafafa;
 }
+
 .hidden{
     display: none;
+}
+
+.description-level{
+    height: 177px;
 }
 
 

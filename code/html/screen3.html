@@ -34,21 +34,24 @@
         <button class="click-to-continue" onclick="getQuestionsInfo(this)">Prosseguir para criar níveis</button>   
     </div>
 
-    <div class="question-creation-screen hidden">
+    <div class="levels-creation-screen hidden">
         <div class="quizz-creation-instructions"><strong>Agora, decida os níveis</strong></div>
         <div class="quizz-container fill-out-levels"></div> 
         <button class="click-to-continue" onclick="finishQuizz(this)">Finalizar Quizz</button>   
     </div>
 
-    <div class="question-creation-screen hidden">
+    <div class="last-quizz-screen hidden">
         <div class="quizz-creation-instructions"><strong>Seu quizz está pronto!</strong></div>
         <div class="quizz-container img-quizz"></div> 
         <button class="click-to-continue" onclick="enterQuizz(this)">Acessar Quizz</button>  
         <button class="return-to-home" onclick="returnToMainMenu(this)">Voltar para home</button>  
     </div>
 
+    
+
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../js/quizz-creation.js"></script>
+    
 </body>
 </html>
