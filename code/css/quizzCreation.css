@@ -8,12 +8,11 @@
     margin-top: 69px;
     font-size: 20px;
 }
-.quizz-creation-screen .quizz-container{
+.quizz-creation-screen .quizz-container, .levels-creation-screen .quizz-container{
     margin-top: 21px;
     margin-bottom: 29px;
     padding-left: 16px;
     padding-right: 18px;
-    overflow-y: scroll;
     display: flex;
     flex-direction: column;
 }
@@ -41,7 +40,7 @@
     margin-left: auto;
     margin-right: auto;    
 }
-.fill-out-questions .quizz-creation-instructions{   
+.fill-out-questions .quizz-creation-instructions, .fill-out-levels .quizz-creation-instructions{   
     background: #fafafa; 
     height: 20px;
     width: auto;
@@ -54,7 +53,7 @@
     font-size: 26px;
     color: #000000;
 }
-.quizz-container.fill-out-questions{
+.quizz-container.fill-out-questions, .quizz-container.fill-out-levels{
     margin-top: 21px;
     margin-bottom: 29px;
     margin-left: auto;
@@ -80,7 +79,7 @@
     margin-left: auto;
     margin-right: auto;
 }
-.question-creation-screen{
+.question-creation-screen, .levels-creation-screen{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -90,13 +89,12 @@
     border: none;
     background: #fafafa;
 }
-
 .hidden{
     display: none;
 }
-
 .description-level{
     height: 177px;
+    text-align: initial;
 }
 
 

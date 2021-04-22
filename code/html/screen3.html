@@ -21,7 +21,7 @@
         <div class="quizz-creation-instructions"><strong>Comece pelo começo</strong></div>
         <div class="quizz-container">
             <input type="text" class="input-quizz-info" placeholder="Título do seu quizz"/>
-            <input type="url" class="input-quizz-info" placeholder="URl da imagem do seu quizz"/>
+            <input type="url" class="input-quizz-info" placeholder="URL da imagem do seu quizz"/>
             <input type="text" class="input-quizz-info" placeholder="Quantidade de perguntas do quizz"/>
             <input type="text" class="input-quizz-info" placeholder="Quantidade de níveis do quizz"/>
             <button class="click-to-continue" onclick="creatTheQuizzQuestions(this)">Prosseguir para criar perguntas</button>
@@ -31,13 +31,13 @@
     <div class="question-creation-screen hidden">
         <div class="quizz-creation-instructions"><strong>Crie suas perguntas</strong></div>
         <div class="quizz-container fill-out-questions"></div> 
-        <button class="click-to-continue" onclick="getQuestionsInfo(this)">Prosseguir para criar níveis</button>   
+        <button class="click-to-continue" onclick="getQuestionsInfo()">Prosseguir para criar níveis</button>   
     </div>
 
     <div class="levels-creation-screen hidden">
         <div class="quizz-creation-instructions"><strong>Agora, decida os níveis</strong></div>
         <div class="quizz-container fill-out-levels"></div> 
-        <button class="click-to-continue" onclick="finishQuizz(this)">Finalizar Quizz</button>   
+        <button class="click-to-continue" onclick="getLevelsInfo()">Finalizar Quizz</button>   
     </div>
 
     <div class="last-quizz-screen hidden">
