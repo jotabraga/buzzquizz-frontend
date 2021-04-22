@@ -40,6 +40,174 @@ Here we define these in a functional way, and give an example code.
   // listen(images[1])("click")(hello);
 #+end_src
 **** TODO Populate with atomic-quizzes
+***** DONE Handle the Quizz api
+CLOSED: [2021-04-21 Wed 22:12]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-21 Wed 22:12]
+:END:
+#+begin_src js 
+  var quizzApi = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/";
+  let handleQuizz = api => id =>
+      {let quizz = axios.get(api);
+       let showQuizz = showQuizzId(id); 
+       quizz.then(showQuizz);
+       quizz.catch(errorHandle);
+      };
+
+  handleQuizz(quizzApi);
+  var errorHandle = quizz => console.log(quizz);
+#+end_src
+***** Manage the data of a single quizz
+#+begin_src js 
+  var showQuizzId = (id)=> (quizz) =>{
+      handleQuizzData(id)(quizz);
+      toggleQuizzLayout();
+  };
+  let handleQuizzData = id => data => populate(data)(id); 
+                                 // populateWithId(data);
+                                 // focus();
+#+end_src
+***** Populate function reciving worked out data
+****** DONE Helper Functions
+CLOSED: [2021-04-21 Wed 22:12]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-21 Wed 22:12]
+:END:
+#+begin_src js 
+  let createMsg = message => document.createTextNode(message);
+  let appendMsgNode = e => nodeMessage => e.appendChild(nodeMessage);  
+  var populateWith = (e) => (c) => e.appendChild(c.cloneNode(true));
+  let createElement = e => document.createElement(e);
+  let assignId = e => identity => e.id = `${identity}`;
+  let assignClass = e => c => e.classList.add(c);
+  var tupleObj = obj => Object.entries(obj);
+  var takeDataId = obj => id => obj.data[id];
+  var changeColor = obj => colorValue => {return obj.style.color = colorValue;};
+  var changeBackground = obj => url =>
+      {return obj.style.backgroundImage = `url(${url})`;};
+#+end_src
+
+****** DONE Quizz ul, where we will append lis
+CLOSED: [2021-04-21 Wed 22:12]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-21 Wed 22:12]
+:END:
+#+begin_src js
+  var quizz = querier('.quizzes ul'); 
+#+end_src
+
+****** NEXT dataFromApiId(inspect api requests and automate it)
+#+begin_src js
+  // id (number), title(string), image (main),
+  //question (object) => atomic-quizz(title,color anwser), levels  
+  let dataFromApiId = bruteAllQuizzes => id => {
+      newList = [];
+      let dataObj = takeDataId(bruteAllQuizzes)(id);
+      console.log(dataObj);
+      createTemplate(dataObj)(newList);
+      return newList;
+  };
+  //id [text, number], title[text, title-text], image [text, []],
+  //questions [text, [...]]=> atomic-quizzes:{answers,color, title} => answers: [{image, isCorrectAnswer, text-title}],
+  //levels
+  var createClassElement = e => c => {
+      let element = createElement(e);
+      addClass(element)(c);
+      return element;
+  };
+  var createTemplate = obj => emptyList =>
+      {let title = createTitle(obj)('quizz-logo');
+       emptyList.push(title);
+      };
+  var createTitle = obj => titleClass => {
+      let div = createClassElement('div')(titleClass);
+      let h1 = createContentElement('h1')(obj.title);
+      populateWith(div)(h1);
+      changeBackground(div)(obj.image);
+      return div;
+  };
+ #+end_src
+****** Span creator with id (not used)
+#+begin_src js
+  let spanNodeId = id =>
+      {let span = createElement('span');
+       assignId(span)(id);
+       return span;
+      };
+  let populateNode = node => content => appendMsgNode(node)(createMsg(content));
+  let createContent = id => content =>
+      {let span = spanNodeId(id);
+       populateNode(span)(content);
+       return span;
+      };
+  let spanNodeClass = c =>
+      {let span = createElement('span');
+       assignClass(span)(c);
+       return span;
+      };
+  let createContentClass = c => content =>
+      {let span = spanNodeClass(c);
+       populateNode(span)(content);
+       return span;
+      };
+#+end_src
+
+****** DONE Create any element with class and content
+CLOSED: [2021-04-21 Wed 17:21]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-21 Wed 17:21]
+:END:
++ =createContentClassElement= recives  =elementType=, =content=, and =c= (class) and returns the DOM element with these.
+#+begin_src js
+  let createContentElement = elementType => content =>
+      {let element = createElement(elementType);
+       populateNode(element)(content);
+       return element;
+      };
+  let createContentClassElement = elementType => content => c =>
+      {let element = createContentElement(elementType)(content);
+       assignClass(element)(c);
+       return element;
+      };
+#+end_src
+****** DONE Create img with url
+CLOSED: [2021-04-21 Wed 17:21]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-21 Wed 17:21]
+:END:
+#+begin_src js
+let imgUrl = img => url => img.src = url;
+let createImg = url =>
+    {let imgElement = createElement('img');
+     imgUrl(imgElement)(url);
+     return imgElement;
+    };
+#+end_src
+
+****** NEXT Populate
+#+begin_src js
+  let body = querier('body');
+  var populate = obj => id =>
+      {let listTemplating = dataFromApiId(obj)(id);
+       console.log(listTemplating);
+       populateWith(body)(listTemplating[0]); //title
+       // let list = dataFromApiId(obj);
+       // console.log(list);
+       // list.forEach(e => console.log(e)); // objData
+       // let li = createElement('li');
+       // assignClass(li)(list[3].textContent);
+       // orderAppendMsg(li)(list);
+       // chat.appendChild(li);
+      };
+  var populateWithId = obj =>
+      {let li = createElement('li');
+       let list = mapKeys(obj);
+       // assignClass(li)(list[3].textContent);
+       // assignId(li)("last");
+       // orderAppendMsg(li)(list);
+       // chat.appendChild(li);
+      };
+#+end_src
 
 **** DONE Change opacity, if one is selected
 CLOSED: [2021-04-20 Tue 22:11]
@@ -243,97 +411,97 @@ CLOSED: [2021-04-21 Wed 13:31]
 #+end_src
 ***** Quizz-logo header
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
-  <div class="quizz-logo">
-      <h1>Logo</h1>
-  </div>
+  <!-- <div class="quizz-logo"> -->
+  <!--     <h1>Logo</h1> -->
+  <!-- </div> -->
 #+end_src
 
 ***** Populate with question-quizzes 
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
-  <div class="quizzes screen2">
+  <!-- <div class="quizzes screen2"> -->
+  <!--     <ul> -->
+  <!--         <li id="quizz1"> -->
+  <!--             <\!-- begin first atomic-quizz -\-> -->
+  <!--             <h1>Some aleatory question</h1> -->
+  <!--             <div class="quizz screen2"> -->
 
-    <ul>
-      <li id="quizz1">
-        <!-- begin first atomic-quizz -->
-        <h1>Some aleatory question</h1>
-        <div class="quizz screen2">
+  <!--                 <div class="img" id="op1"> -->
+  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
+  <!--                     <h2>A horse</h2> -->
+  <!--                 </div> -->
+  <!--                 <div class="img" id="op2"> -->
+  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
+  <!--                     <h2>A horse</h2> -->
+  <!--                 </div> -->
+  <!--                 <div class="img" id="op3"> -->
+  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
+  <!--                     <h2>A horse</h2> -->
+  <!--                 </div> -->
+  <!--                 <div class="img" id="op4"> -->
+  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
+  <!--                     <h2>A horse</h2> -->
+  <!--                 </div> -->
 
-          <div class="img" id="op1">
-            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-            <h2>A horse</h2>
-          </div>
-          <div class="img" id="op2">
-            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-            <h2>A horse</h2>
-          </div>
-          <div class="img" id="op3">
-            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-            <h2>A horse</h2>
-          </div>
-          <div class="img" id="op4">
-            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-            <h2>A horse</h2>
-          </div>
+  <!--             </div> -->
+  <!--             <\!-- end first atomic-quizz -\-> -->
+  <!--         </li> -->
 
-        </div>
-        <!-- end first atomic-quizz -->
-      </li>
+  <!--         <li id="quizz2"> -->
+  <!--             <\!-- begin second atomic-quizz -\-> -->
+  <!--             <h1>Some aleatory question</h1> -->
 
-      <li id="quizz2">
-        <!-- begin second atomic-quizz -->
-        <h1>Some aleatory question</h1>
+  <!--             <div class="quizz screen2"> -->
 
-        <div class="quizz screen2">
+  <!--                 <div class="img" id="op1"> -->
+  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
+  <!--                     <h2>A horse</h2> -->
+  <!--                 </div> -->
+  <!--                 <div class="img" id="op2"> -->
+  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
+  <!--                     <h2>A horse</h2> -->
+  <!--                 </div> -->
+  <!--                 <div class="img" id="op3"> -->
+  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
+  <!--                     <h2>A horse</h2> -->
+  <!--                 </div> -->
+  <!--                 <div class="img" id="op4"> -->
+  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
+  <!--                     <h2>A horse</h2> -->
+  <!--                 </div> -->
 
-          <div class="img" id="op1">
-            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-            <h2>A horse</h2>
-          </div>
-          <div class="img" id="op2">
-            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-            <h2>A horse</h2>
-          </div>
-          <div class="img" id="op3">
-            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-            <h2>A horse</h2>
-          </div>
-          <div class="img" id="op4">
-            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-            <h2>A horse</h2>
-          </div>
+  <!--             </div> -->
+  <!--             <\!-- end second atomic-quizz -\-> -->
+  <!--         </li> -->
+  <!--     </ul> -->
 
-        </div>
-        <!-- end second atomic-quizz -->
-      </li>
-    </ul>
-
-    <div class="score hidde-page">
-      <h1>This is your score</h1>
-      <div class="quizz screen2">
-        <div class="img" id="op1">
-          <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
-        </div>
-        <div class="img">
-          <h2>Pellentesque id nibh tortor, id aliquet lectus proin nibh
-            nisl. Ullamcorper malesuada proin libero nunc, consequat
-            interdum varius sit amet, mattis vulputate enim nulla
-            aliquet porttitor lacus, luctus accumsan tortor?
-          </h2>
-        </div>
-      </div>
-      <div class="buttons">
-        <button class="restart">Restart Quizz</button>
-        <button class="home">Return Home</button>
-      </div>
-    </div>
+  <!--     <div class="score hidde-page"> -->
+  <!--         <h1>This is your score</h1> -->
+  <!--         <div class="quizz screen2"> -->
+  <!--             <div class="img" id="op1"> -->
+  <!--                 <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
+  <!--             </div> -->
+  <!--             <div class="img"> -->
+  <!--                 <h2>Pellentesque id nibh tortor, id aliquet lectus proin nibh -->
+  <!--                     nisl. Ullamcorper malesuada proin libero nunc, consequat -->
+  <!--                     interdum varius sit amet, mattis vulputate enim nulla -->
+  <!--                     aliquet porttitor lacus, luctus accumsan tortor? -->
+  <!--                 </h2> -->
+  <!--             </div> -->
+  <!--         </div> -->
+  <!--         <div class="buttons"> -->
+  <!--             <button class="restart">Restart Quizz</button> -->
+  <!--             <button class="home">Return Home</button> -->
+  <!--         </div> -->
+  <!--     </div> -->
 #+end_src
 ***** Togglable score
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
-  <div class="score hidden"></div>
+  <!-- <div class="score hidden"></div> -->
 #+end_src
 
 ***** Foot (scripts)
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="../js/quizz-game.js"></script>
   </body>
 #+end_src
@@ -360,7 +528,7 @@ CLOSED: [2021-04-20 Tue 11:23]
 
   .quizz-logo h1 {
       color: #fff;
-      font-size: 10vh;
+      font-size: 3.5vh;
       text-align: center;
       margin: auto 0;
       font-weight: 400;
