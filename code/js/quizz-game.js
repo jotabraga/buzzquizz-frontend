@@ -16,7 +16,7 @@ let handleQuizz = api => id =>
      quizz.catch(errorHandle);
     };
 
-handleQuizz(quizzApi)(0);
+handleQuizz(quizzApi);
 var errorHandle = quizz => console.log(quizz);
 
 var showQuizzId = (id)=> (quizz) =>{
@@ -29,10 +29,18 @@ let handleQuizzData = id => data => populate(data)(id);
 
 let createMsg = message => document.createTextNode(message);
 let appendMsgNode = e => nodeMessage => e.appendChild(nodeMessage);  
-var populateWith = (e) => (c) => e.appendChild(c.cloneNode(true));
 let createElement = e => document.createElement(e);
 let assignId = e => identity => e.id = `${identity}`;
 let assignClass = e => c => e.classList.add(c);
+var tupleObj = obj => Object.entries(obj);
+var takeDataId = obj => id => obj.data[id];
+var changeColor = obj => colorValue => {return obj.style.color = colorValue;};
+var changeBackground = obj => url =>
+    {return obj.style.backgroundImage = `url(${url})`;};
+// var populateWith = (e) => (c) => (typeof(c)=== "object" ?
+// 				  c.forEach(a => e.appendChild(a.cloneNode(true))) :
+//                                   e.appendChild(c.cloneNode(true)));
+var populateWith = (e) => (c) => e.appendChild(c.cloneNode(true));
 
 var quizz = querier('.quizzes ul');
 
@@ -40,16 +48,81 @@ var quizz = querier('.quizzes ul');
 //question (object) => atomic-quizz(title,color anwser), levels  
 let dataFromApiId = bruteAllQuizzes => id => {
     newList = [];
-    // console.log(bruteAllQuizzes);
-    // console.log(bruteAllQuizzes.data);
-    console.log(Object.entries(bruteAllQuizzes.data[id]));
-    Object.entries(bruteAllQuizzes.data[id]).forEach(e => {newList.push(createContentClass(e[0])(e[1]));
-                                                      console.log(e);
-    });
-    // quizz = Object.entries(allQuizzes.data);
+    let dataObj = takeDataId(bruteAllQuizzes)(id);
+    console.log(dataObj);
+    createTemplate(dataObj)(newList);
     return newList;
 };
-// return the list of all [id, {...data}] <=> type: list of lists
+
+//id [text, number], title[text, title-text], image [text, []],
+//questions [text, [...]]=> atomic-quizzes:{answers,color, title} => answers: [{image, isCorrectAnswer, text-title}],
+//levels
+var createTemplate = obj => emptyList =>
+    {let title = createTitle(obj)('quizz-logo');
+     emptyList.push(title);
+     let container = createQuizzes(obj)('quizzes');
+     emptyList.push(container);
+     let quizz = createQuizz(obj);
+     emptyList.push(quizz);
+    };
+var createTitle = obj => titleClass => {
+    let div = createClassElement('div')(titleClass);
+    let h1 = createContentElement('h1')(obj.title);
+    populateWith(div)(h1);
+    changeBackground(div)(obj.image);
+    return div;
+};
+var createQuizzes = obj => titleClass => {
+    let div = createClassElement('div')(titleClass);
+    addClass(div)('screen2');
+    let ul = createElement('ul');
+    populateWith(div)(ul);
+    return div;
+};
+
+var createQuizz = obj => {
+    let newList = [];
+    obj.questions.forEach((q, i) =>{
+        let li = createElement('li');
+        createQuizzTitle(q)(li);
+        createBodyContainer(q)(li)(i);
+        newList.push(li);
+    });
+    return newList;
+};
+
+let createImageContainer = q => container => i => {
+    let newList=[];
+    q.answers.forEach(a =>{
+        populateImages(container)(a);
+        newList.push(container);
+    });
+    return newList;
+};
+
+var createQuizzTitle = question => li => {
+    let h1 = createContentElement('h1')(question.title);
+    changeColor(h1)(question.color);
+    populateWith(li)(h1);	
+};
+
+var createBodyContainer = question => li => i =>{
+    let div = createClassElement('div')('quizz');
+    addClass(div)('screen2');
+    assignId(div)(`atomic-quizz${i}`);
+    createImageContainer(question)(div)(i);
+    populateWith(li)(div);
+};
+
+
+var populateImages = container => anwser => {
+    let div = createClassElement('div')('img');
+    let img = createImg(anwser.image);
+    let h2 = createContentElement('h2')(anwser.text);
+    populateWith(div)(img);
+    populateWith(div)(h2);
+    populateWith(container)(div);
+};
 
 let spanNodeId = id =>
     {let span = createElement('span');
@@ -73,16 +146,21 @@ let createContentClass = c => content =>
      return span;
     };
 
-let createContentElement = elementType => content =>
+var createContentElement = elementType => content =>
     {let element = createElement(elementType);
      populateNode(element)(content);
      return element;
     };
-let createContentClassElement = elementType => content => c =>
+var createContentClassElement = elementType => content => c =>
     {let element = createContentElement(elementType)(content);
      assignClass(element)(c);
      return element;
     };
+var createClassElement = e => c => {
+    let element = createElement(e);
+    addClass(element)(c);
+    return element;
+};
 
 let imgUrl = img => url => img.src = url;
 let createImg = url =>
@@ -91,30 +169,23 @@ let createImg = url =>
      return imgElement;
     };
 
+let body = querier('body');
 var populate = obj => id =>
-    {let list = dataFromApiId(obj)(id);
-     // let list = dataFromApiId(obj);
-     // console.log(list);
-     list.forEach(e => console.log(e)); // objData
-     // let li = createElement('li');
-     // assignClass(li)(list[3].textContent);
-     // orderAppendMsg(li)(list);
-     // chat.appendChild(li);
-    };
-var populateWithId = obj =>
-    {let li = createElement('li');
-     let list = mapKeys(obj);
-     // assignClass(li)(list[3].textContent);
-     // assignId(li)("last");
-     // orderAppendMsg(li)(list);
-     // chat.appendChild(li);
+    {let listTemplating = dataFromApiId(obj)(id);
+     console.log(listTemplating);
+     listTemplating.forEach(e =>
+         (Array.isArray(e) ?
+          e.forEach(e => populateWith(querier('ul'))(e)) :
+          populateWith(body)(e)));
+     const cards = document.querySelectorAll("div.quizz.screen2 div.img");
+     activateListeners(cards);
     };
 
-const cards = document.querySelectorAll("div.quizz.screen2 div.img");
+// const cards = document.querySelectorAll("div.quizz.screen2 div.img");
 
-cards.forEach((card) => {
-    card.addEventListener("click", selectCard);
-});
+// cards.forEach((card) => {
+//     card.addEventListener("click", selectCard);
+// });
 
 let activateListeners = atomicQuizzDOM => {
     atomicQuizzDOM.forEach((card) => {
