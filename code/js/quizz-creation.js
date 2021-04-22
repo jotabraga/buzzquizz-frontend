@@ -6,7 +6,7 @@ const questionsArray = [];
 const levelsArray = [];
 
 function creatTheQuizzQuestions(startCreationButton){
-
+    
     const startCreationScreen = startCreationButton.parentNode; 
     quizzTitle = startCreationScreen.children[0].value;
     quizzPicture = startCreationScreen.children[1].value;
@@ -174,15 +174,28 @@ function getLevelsInfo(){
 
         levelsArray.push(levelObj);      
    }
+   pushArrayOfQuizzToServer();
    changeToLevelsCreationScreen(); 
 }
+
+function pushArrayOfQuizzToServer(){
+
+    const quizzObj = {
+        title: quizzTitle,
+        image: quizzPicture,
+        questions: questionsArray,
+        levels: levelsArray
+    }
+    const requisition = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes",quizzObj);    
+}
+
+
 function changeToLevelsCreationScreen(){
 
-    const pageInitial = document.querySelector(".question-creation-screen");
+    const pageInitial = document.querySelector(".levels-creation-screen");
     pageInitial.classList.add("hidden");
-    const pageToCreat = document.querySelector(".levels-creation-screen");
+    const pageToCreat = document.querySelector(".last-quizz-screen");
     pageToCreat.classList.remove("hidden");
-    levelsFillOut();
 }
 
 
