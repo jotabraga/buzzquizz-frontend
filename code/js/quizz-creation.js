@@ -4,6 +4,7 @@ let numberOfQuestions;
 let numberOfLevels;
 const questionsArray = [];
 const levelsArray = [];
+const answersArray = [];
 
 function creatTheQuizzQuestions(startCreationButton){
 
@@ -38,11 +39,8 @@ function isURL(str) {
     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
     '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-    if(patern.test(str) === false){
-        alert("Insira uma URL valida");
-    }
-    return pattern.test(str); 
     
+    return pattern.test(str);     
 }
 
 function changeToQuestionCreationScreen(){
@@ -121,6 +119,7 @@ function getQuestionsInfo(){
         }
         const titleOf = questionBox.children[1].value;
         const colorOf = questionBox.children[2].value;
+
         const questionObj = {
             title: titleOf,
             color: colorOf,
@@ -129,18 +128,19 @@ function getQuestionsInfo(){
         questionsArray.push(questionObj);
     }
 
-    validationOfQuestions(answersArray, questionsArray);
+   // validationOfQuestions(answersArray, questionsArray);
 
-    if(validationOfQuestions(answersArray, questionsArray)){
+    //if(validationOfQuestions(answersArray, questionsArray)){
         changeToLevelsCreationScreen();
-    } else {
-        alert("Preencha corretamente para continuar");
-    }      
+   // } else {
+    //    alert("Preencha corretamente para continuar");
+    //}      
+    console.log(questionsArray);
 }
 
 function validationOfQuestions(answersArray, questionsArray){
 
-    const testLenght = questionsArray.forEach(verifyLenght(questionsArray));
+    const testLenght = questionsArray.title.forEach(verifyLenght(questionsArray));
     const testHex = questionsArray.forEach(verifyHexadecimalColor(questionsArray));
     const testNotNull = answerArray.forEach(verifyNotNull(answerArray));
     const testURL = answerArray.forEach(isURL(answerArray.image));
@@ -153,7 +153,11 @@ function validationOfQuestions(answersArray, questionsArray){
     }    
 }
 function verifyLenght(element){
-    if(element.title.lenght < 20){
+
+    const title = element.title;
+    const titleLenght = parseInt(title.lenght);
+
+    if(titleLenght < 20){
         alert("O titulo deve conter 20 caracteres no minimo");
         return false;
     }else {
@@ -162,6 +166,7 @@ function verifyLenght(element){
 }
 
 function verifyHexadecimalColor(element){
+
     const pattern = /#+([a-fA-F0-9]{6})/
 
     if(element.colorOf.match(pattern)){
@@ -171,7 +176,9 @@ function verifyHexadecimalColor(element){
         return false;
     }
 }
+
 function verifyNotNull(element){
+
     if(element.text !== null){
         return true;
     } else{
@@ -179,9 +186,13 @@ function verifyNotNull(element){
         return false;
     }
 }
+
 function verifyNumberOfQuestions(element){
-    if(element.length >== 2){
+
+    if(element.length >= 2){
         return true;
+    }else {
+        alert("O quizz deve conter no minimo 2 questões");
     }
 }
 
@@ -212,7 +223,7 @@ function levelsFillOut(){
 
 function getLevelsInfo(){
 
-  /* for(let i=0; i < numberOfLevels; i++){
+    for(let i=0; i < numberOfLevels; i++){
 
         let identificator = "l" + i;    
         const levelBox = document.getElementById(identificator);
@@ -230,13 +241,12 @@ function getLevelsInfo(){
         }
 
         levelsArray.push(levelObj);      
-    } */
+    } 
     finalQuizzFillOut();
-  // pushArrayOfQuizzToServer();
-   
+    pushArrayOfQuizzToServer();   
 }
 
-/*function pushArrayOfQuizzToServer(){
+function pushArrayOfQuizzToServer(){
 
     const quizzObj = {
         title: quizzTitle,
@@ -247,10 +257,9 @@ function getLevelsInfo(){
     console.log(quizzObj);
     const requisition = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes",quizzObj);    
 }
-*/
-
 
 function finalQuizzFillOut(){
+
     const imgQuizz = document.querySelector(".img-quizz");
     imgQuizz.innerHTML += `<div style="background: linear-gradient(to bottom, transparent, #000)>
     <div class="quizz-description">${quizzTitle}</div></div>`;
@@ -264,17 +273,6 @@ function changeToLastScreen(){
     pageToHide.classList.add("hidden");
     const pageToShow = document.querySelector(".last-quizz-screen");
     pageToShow.classList.remove("hidden");
-
-
-   /* const quizzObj = {
-        title: quizzTitle,
-        image: quizzPicture,
-        questions: questionsArray,
-        levels: levelsArray
-    }
-    console.log(quizzObj);
-*/
-   
 }
 
 
