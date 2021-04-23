@@ -18,28 +18,59 @@ In =code= we find our code-base. And, in =resources= we store images, icons, fon
 
 ** Layout 1
 Worked out in conjunction.
+
+*** JS
 #+begin_src js :tangle ./code/js/main-page.js 
   let initPage = () => allQuizzes(quizzApi)(9);
 
   let allQuizzes = api => number =>
       {let quizz = axios.get(api);
-       // let showQuizz = showQuizzId(id); 
        let captureQuizzes = captureQuizzIds(number);
        quizz.then(captureQuizzes);
        quizz.catch(errorHandle);
       };
   var captureQuizzIds = number => quizz =>{
       handleQuizzesDatas(number)(quizz);
-      // toggleMainLayout();
   };
 
 
   let handleQuizzesDatas = number => quizzesData => populateAvalible(quizzesData)(number);
   var populateAvalible = quizzesData => number => {
       let listOfTemplates = fetchData(quizzesData)(number);
-      console.log(listOfTemplates);
+      // console.log(listOfTemplates);
       let quizzesDiv = querier('.quizzes');
       listOfTemplates.forEach(template => populateWith(quizzesDiv)(template));
+      const quizzesClickable = querierAll('.quizz');
+      activateQuizzListeners(quizzesClickable);
+  };
+
+  let activateQuizzListeners = atomicQuizzDOM => {
+      atomicQuizzDOM.forEach((card) => {
+          card.addEventListener("click", apiRender);
+      });
+  };
+
+  let deactivateQuizzListeners = atomicQuizzDOM => {
+      atomicQuizzDOM.forEach((card) => {
+          card.removeEventListener("click", apiRender);
+      });
+  };
+
+  function apiRender(e) {
+      const cardId = parseInt(this.id) - 1;
+      const children = Array.from(this.parentElement.children);
+      children.forEach((card) => toggleOpacity(card));
+      handleQuizz(quizzApi)(cardId);
+      // untoggleOpacity(this);
+      // console.log(this);
+      // console.log(closestLi);.nextElementSibling;
+      deactivateListeners(children);
+      setTimeout(scrollToQuizz, 2000);
+  };
+  var scrollToQuizz = () => {
+      const closestUl = querier('div.quizz-logo');
+      console.log(querier('div.quizz-logo'));
+      scroll(closestUl);
   };
 
   var fetchData = quizzesData => number =>{
@@ -52,25 +83,46 @@ Worked out in conjunction.
       return fetchedData;
   };
 
-    var createTemplateIndex = obj => emptyList =>
-        {let title = createTitleIndex(obj)('quizz');
-         emptyList.push(title);
-        };
+  var createTemplateIndex = obj => emptyList =>
+      {let title = createTitleIndex(obj)('quizz');
+       emptyList.push(title);
+      };
 
-    var createTitleIndex = obj => titleClass => {
-        let div = createClassElement('div')(titleClass);
-        let div2 = createClassElement('div')('quizz-image');
-        let div3 = createContentClassElement('div')(obj.title)('quizz-description');
-        changeBackground(div2)(obj.image);
-        populateWith(div2)(div3);
-        populateWith(div)(div2);
-        return div;
-    };
+  var createTitleIndex = obj => titleClass => {
+      // console.log(obj.id);
+      let div = createClassElement('div')(titleClass);
+      assignId(div)(obj.id);
+      let div2 = createClassElement('div')('quizz-image');
+      let div3 = createContentClassElement('div')(obj.title)('quizz-description');
+      changeBackground(div2)(obj.image);
+      populateWith(div2)(div3);
+      populateWith(div)(div2);
+      return div;
+  };
 
 
   initPage();
 #+end_src
 
+*** HTML
+**** Clickable Quizzes
+#+begin_src html
+  <!-- quizz n1 -->
+  <div class="quizz">
+    <div class="quizz-image">
+      <div class="quizz-description">Teste: testando se a imagem fica com fundo degrade</div>
+    </div>
+  </div>
+  <!-- quizz n1 end -->
+
+  <!-- quizz n2 -->
+  <div class="quizz">
+    <div class="quizz-image">
+      <div class="quizz-description">Teste: testando se a imagem fica com fundo degrade</div>
+    </div>
+  </div>
+  <!-- quizz n2 end -->
+#+end_src
 ** Layout 2 
 LW
 *** JS
@@ -416,7 +468,7 @@ CLOSED: [2021-04-22 Thu 18:18]
              e.forEach(e => populateWith(querier('ul'))(e)) :
              e.forEach(e => populateWith(querier('div.quizzes.screen2'))(e))):
             populateWith(body)(e)));
-       const cards = document.querySelectorAll("div.quizz.screen2 div.img");
+       const cards = querierAll("div.quizz.screen2 div.img");
        activateListeners(cards);
       };
 #+end_src
@@ -446,10 +498,6 @@ CLOSED: [2021-04-20 Tue 22:09]
 - State "DONE"       from "NEXT"       [2021-04-20 Tue 22:09]
 :END:
 #+begin_src js
-  // cards.forEach((card) => {
-  //     card.addEventListener("click", selectCard);
-  // });
-
   let activateListeners = atomicQuizzDOM => {
       atomicQuizzDOM.forEach((card) => {
           card.addEventListener("click", selectCard);
@@ -514,7 +562,6 @@ In plain English, as the function receives an element (a query selected one), it
 3. Untoggles the selected card.
 4. Deactivate the Listeners, thus locking the card selection.
 5. Scroll to the next card.
-# let focus = () => querier('#last').scrollIntoView();  
 #+begin_src js
   function selectCard(e) {
       const closestLi = this.closest('li').nextElementSibling;

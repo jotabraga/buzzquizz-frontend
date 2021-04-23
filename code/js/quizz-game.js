@@ -227,15 +227,11 @@ var populate = obj => id =>
            e.forEach(e => populateWith(querier('ul'))(e)) :
            e.forEach(e => populateWith(querier('div.quizzes.screen2'))(e))):
           populateWith(body)(e)));
-     const cards = document.querySelectorAll("div.quizz.screen2 div.img");
+     const cards = querierAll("div.quizz.screen2 div.img");
      activateListeners(cards);
     };
 
 // const cards = document.querySelectorAll("div.quizz.screen2 div.img");
-
-// cards.forEach((card) => {
-//     card.addEventListener("click", selectCard);
-// });
 
 let activateListeners = atomicQuizzDOM => {
     atomicQuizzDOM.forEach((card) => {
