@@ -1,4 +1,5 @@
 let quizzObj;
+const quizzId;
 
 function creatTheQuizzQuestions(startCreationButton){
 
@@ -236,7 +237,6 @@ function getLevelsInfo(){
         }   
     }
     if(validation === true && levelZero === 1){
-        alert("passou na validação");
         pushArrayOfQuizzToServer();  
     } else {
         alert("Não passou na validação");
@@ -253,6 +253,7 @@ function pushArrayOfQuizzToServer(){
     requisition.catch(errorServer =>{
         console.log(error);
     })  
+    quizzId = response.data.id
     finalQuizzFillOut(); 
 }
 
@@ -273,9 +274,13 @@ function changeToLastScreen(){
     const pageToShow = document.querySelector(".last-quizz-screen");
     pageToShow.classList.remove("hidden");
 }
+
 function returnToMainMenu(){
+
     location.reload();    
 }
-// function enterQuizz(){
 
-// }
+function enterQuizz(){
+
+    handleQuizz(quizzApi)(quizzId);    
+ }
