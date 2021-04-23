@@ -29,15 +29,14 @@
 * Layout-2---Quizz-Page Main Obligations                                :blue:purple:
   :PROPERTIES:
   :orgtrello_id: 607ec8a627eca00933b4362e
-  :orgtrello_local_checksum: 67e8d20fe8700fd6d4d818c0a5e468e2adb052728c1b88f847d1170d581d8ae3
+  :orgtrello_local_checksum: 2382be47045900dd62d2672f4c751738c58b58bd7cffdb35b6fd0d28b8f1bcd2
   :END:
-
     - [X] No topo do quizz, deve ser exibido um banner com a imagem e o título do quizz. A imagem deve estar escurecida com uma camada preta de 60% de opacidade.
     - [-] As respostas de cada pergunta devem ser exibidas organizadas aleatoriamente
-    - [-] Ao clicar em uma resposta, as demais devem ganhar o efeito "esbranquiçado" do layout
-    - [-] Não deve ser possível alterar a resposta após a escolha
+    - [X] Ao clicar em uma resposta, as demais devem ganhar o efeito "esbranquiçado" do layout
+    - [X] Não deve ser possível alterar a resposta após a escolha
     - [-] Após escolher uma resposta, o texto das opções deve ganhar a cor vermelha ou verde, conforme layout, indicando quais eram as respostas erradas e a certa
-    - [-] Após 2 segundos de respondida, deve-se scrollar a página para a próxima pergunta
+    - [X] Após 2 segundos de respondida, deve-se scrollar a página para a próxima pergunta
 
 * Layout-3---Quizz-Creation Layout - Basics info of Quizz (Screen 3.1)  :red:blue:
   :PROPERTIES:
