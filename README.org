@@ -36,7 +36,6 @@ Worked out in conjunction.
   let handleQuizzesDatas = number => quizzesData => populateAvalible(quizzesData)(number);
   var populateAvalible = quizzesData => number => {
       let listOfTemplates = fetchData(quizzesData)(number);
-      // console.log(listOfTemplates);
       let quizzesDiv = querier('.quizzes');
       listOfTemplates.forEach(template => populateWith(quizzesDiv)(template));
       const quizzesClickable = querierAll('.quizz');
@@ -66,11 +65,8 @@ Worked out in conjunction.
       deactivateListeners(children);
       setTimeout(scrollToQuizz, 2000);
   };
-  var idArray = listElements =>{
-      let interm = [];
-      listElements.forEach(e => interm.push(e.id));
-      return interm;
-  };
+  var id = e => e.id;
+  var idArray = listElements => listElements.map(id);
 
   var scrollToQuizz = () => {
       const closestUl = querier('div.quizz-logo');
@@ -104,7 +100,6 @@ Worked out in conjunction.
       populateWith(div)(div2);
       return div;
   };
-
 
   initPage();
 #+end_src
