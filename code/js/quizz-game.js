@@ -34,6 +34,7 @@ let assignId = e => identity => e.id = `${identity}`;
 let assignClass = e => c => e.classList.add(c);
 var tupleObj = obj => Object.entries(obj);
 var takeDataId = obj => id => obj.data[id];
+var takeDataIdServer = obj => id => obj.data.id;
 var changeColor = obj => colorValue => {return obj.style.color = colorValue;};
 var changeBackground = obj => url =>
     {return obj.style.backgroundImage = `url(${url})`;};
