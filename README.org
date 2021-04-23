@@ -913,6 +913,87 @@ CLOSED: [2021-04-21 Wed 13:20]
       color: #818181;
   }
 #+end_src
-
-
 ** Layout3
+
+#+begin_src js :tangle ../js/refactor.js
+  for(let i=0; i < numberOfQuestions; i++){
+
+      let identificator = "q" + i;  
+      const questionBox = document.getElementById(identificator);
+      const answerArray = [];
+
+      for(let i=3; i < 10; i+=2){           
+
+          if(questionBox.children[i] !== null){
+
+              const texts = questionBox.children[i].value;
+              const picture = questionBox.children[i+1].value;
+              let rightAnswer;
+              if(i === 3){
+                  rightAnswer = true;
+              } else {
+                  rightAnswer = false;
+              }
+              const answer = {
+                  text: texts,
+                  image: picture,
+                  isCorrectAnswer: rightAnswer
+              }
+              answerArray.push(answer);
+
+          } else {
+              break;
+          }            
+      }
+      const titleOf = questionBox.children[1].value;
+      const colorOf = questionBox.children[2].value;
+
+      const questionObj = {
+          title: titleOf,
+          color: colorOf,
+          answer: answerArray
+      }
+      questionsArray.push(questionObj);
+  }    
+#+end_src
+
+#+begin_src js :tangle ../js/refactor.js
+  let querier = e => document.querySelector(e);
+
+  var validateBox = numberOfQuestions => 
+      numberOfQuestions.forEach((e, i) => scrapBoxInfo(id)(i));
+
+  var scrapBoxInfo = id => i => {
+      let identificator = `q${i}`;
+      const questionBox = querier();
+      answers();
+  };
+#+end_src
+
+#+begin_src js :tangle ../js/refactor.js
+  var infoBox = querier('.click-to-continue').parentNode;
+  var arrayInfo = Array.from(infoBox.children);
+#+end_src
+
+#+begin_src js :tangle ../js/refactor.js
+  var creatTheQuizzQuestions = (startCreationButton) => {
+      let arrayInfo = Array.from(this.parentNode);
+      newObj = {};
+      newObj.title = arrayInfo[0].value;
+      newObj.image = arrayInfo[1].value;
+      newObj.numberQuestions = parseInt(arrayInfo[2].value);
+      newObj.numberLevels = parseInt(arrayInfo[3].value);
+      validationBasicInfo(newObj);
+  };
+
+  var validationOfBasicInfo = obj =>
+      ((obj.title.length < 20 || obj.title.length>65) ?
+       (alert("O titulo deve ter de 20 a 65 caracteres")) :
+       ((isURL(obj.image) !== true) ?
+        (alert("A imagem não está no formato de url")):
+        ((obj.numberQuestions < 3) ?
+         (alert("O numero minimo de perguntas é 3")):
+         ((obj.numberLevels < 2) ?
+          (alert("O numero minimo de niveis é 2")):
+          (changeToQuestionCreationScreen())))));
+#+end_src

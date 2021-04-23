@@ -22,7 +22,7 @@ let handleQuizz = api => id =>
 handleQuizz(quizzApi);
 var errorHandle = quizz => console.log(quizz);
 
-var showQuizzId = (id)=> (quizz) =>{
+var showQuizzId = (id) => (quizz) =>{
     handleQuizzData(id)(quizz);
     toggleQuizzLayout();
 };
@@ -51,6 +51,7 @@ var quizz = querier('.quizzes ul');
 //question (object) => atomic-quizz(title,color anwser), levels  
 let dataFromApiId = bruteAllQuizzes => id => {
     newList = [];
+    console.log(bruteAllQuizzes);
     let dataObj = takeDataId(bruteAllQuizzes)(id);
     console.log(dataObj);
     createTemplate(dataObj)(newList);

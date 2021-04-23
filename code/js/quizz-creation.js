@@ -6,30 +6,40 @@ const questionsArray = [];
 const levelsArray = [];
 const answersArray = [];
 
-function creatTheQuizzQuestions(startCreationButton){
+// let activateListeners = atomicQuizzDOM => {
+//     atomicQuizzDOM.forEach((card) => {
+//         card.addEventListener("click", selectCard);
+//     });
+// };
+// let querier = e => document.querySelector(e);
+let listen = element => event => f => element.addEventListener(event, f);
+let hello = () => alert("olá!");
+let infoButton = querier('.click-to-continue');
 
-    const startCreationScreen = startCreationButton.parentNode; 
-    quizzTitle = startCreationScreen.children[0].value;
-    quizzPicture = startCreationScreen.children[1].value;
-    numberOfQuestions = parseInt(startCreationScreen.children[2].value);
-    numberOfLevels = parseInt(startCreationScreen.children[3].value);
-    validationOfBasicInfo(quizzTitle, quizzPicture, numberOfQuestions, numberOfLevels);
-}
 
-function validationOfBasicInfo(title, picture, numOfQuestions, numOfLevels){
+var creatTheQuizzQuestions = (startCreationButton) => {
+    let arrayInfo = Array.from(this.parentNode.children);
+    newObj = {};
+    newObj.title = arrayInfo[0].value;
+    newObj.image = arrayInfo[1].value;
+    newObj.numberQuestions = parseInt(arrayInfo[2].value);
+    newObj.numberLevels = parseInt(arrayInfo[3].value);
+    validationBasicInfo(newObj);
+};
 
-    if(title.length < 20 || title.length>65){
-        alert("O titulo deve ter de 20 a 65 caracteres");
-    }else if(isURL(picture) !== true){
-        alert("A imagem não está no formato de url");
-    }else if (numOfQuestions < 3){
-        alert("O numero minimo de perguntas é 3");
-    }else if (numOfLevels < 2){
-        alert("O numero minimo de niveis é 2");
-    }else {
-        changeToQuestionCreationScreen();
-    }
-}
+var validationOfBasicInfo = obj =>
+    ((obj.title.length < 20 || obj.title.length > 65) ?
+     (alert("O titulo deve ter de 20 a 65 caracteres")) :
+     ((isURL(obj.image) !== true) ?
+      (alert("A imagem não está no formato de url")):
+      ((obj.numberQuestions < 3) ?
+       (alert("O numero minimo de perguntas é 3")):
+       ((obj.numberLevels < 2) ?
+        (alert("O numero minimo de niveis é 2")):
+        (changeToQuestionCreationScreen())))));
+
+// (prep ?  true : false)
+
 
 function isURL(str) {
 
@@ -98,19 +108,16 @@ function getQuestionsInfo(){
                 const texts = questionBox.children[i].value;
                 const picture = questionBox.children[i+1].value;
                 let rightAnswer;
-                
                 if(i === 3){
                     rightAnswer = true;
                 } else {
-                    rightAnswer = false
+                    rightAnswer = false;
                 }
-
                 const answer = {
                     text: texts,
                     image: picture,
                     isCorrectAnswer: rightAnswer
                 }
-
                 answerArray.push(answer);
 
             } else {
@@ -127,14 +134,7 @@ function getQuestionsInfo(){
         }
         questionsArray.push(questionObj);
     }
-
-   // validationOfQuestions(answersArray, questionsArray);
-
-    //if(validationOfQuestions(answersArray, questionsArray)){
         changeToLevelsCreationScreen();
-   // } else {
-    //    alert("Preencha corretamente para continuar");
-    //}      
     console.log(questionsArray);
 }
 
