@@ -18,6 +18,58 @@ In =code= we find our code-base. And, in =resources= we store images, icons, fon
 
 ** Layout 1
 Worked out in conjunction.
+#+begin_src js :tangle ./code/js/main-page.js 
+  let initPage = () => allQuizzes(quizzApi)(9);
+
+  let allQuizzes = api => number =>
+      {let quizz = axios.get(api);
+       // let showQuizz = showQuizzId(id); 
+       let captureQuizzes = captureQuizzIds(number);
+       quizz.then(captureQuizzes);
+       quizz.catch(errorHandle);
+      };
+  var captureQuizzIds = number => quizz =>{
+      handleQuizzesDatas(number)(quizz);
+      // toggleMainLayout();
+  };
+
+
+  let handleQuizzesDatas = number => quizzesData => populateAvalible(quizzesData)(number);
+  var populateAvalible = quizzesData => number => {
+      let listOfTemplates = fetchData(quizzesData)(number);
+      console.log(listOfTemplates);
+      let quizzesDiv = querier('.quizzes');
+      listOfTemplates.forEach(template => populateWith(quizzesDiv)(template));
+  };
+
+  var fetchData = quizzesData => number =>{
+      let fetchedData = [];
+      let dataList = [];
+      quizzesData.data.forEach((quizz,i) => ((i<=number) ?
+                                             dataList.push(quizz) :
+                                             dataList));
+      dataList.forEach(dataObj => createTemplateIndex(dataObj)(fetchedData));
+      return fetchedData;
+  };
+
+    var createTemplateIndex = obj => emptyList =>
+        {let title = createTitleIndex(obj)('quizz');
+         emptyList.push(title);
+        };
+
+    var createTitleIndex = obj => titleClass => {
+        let div = createClassElement('div')(titleClass);
+        let div2 = createClassElement('div')('quizz-image');
+        let div3 = createContentClassElement('div')(obj.title)('quizz-description');
+        changeBackground(div2)(obj.image);
+        populateWith(div2)(div3);
+        populateWith(div)(div2);
+        return div;
+    };
+
+
+  initPage();
+#+end_src
 
 ** Layout 2 
 LW
@@ -55,7 +107,7 @@ CLOSED: [2021-04-21 Wed 22:12]
 - State "DONE"       from "NEXT"       [2021-04-21 Wed 22:12]
 :END:
 #+begin_src js 
-  var quizzApi = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/";
+  const quizzApi = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/";
   let handleQuizz = api => id =>
       {let quizz = axios.get(api);
        let showQuizz = showQuizzId(id); 
@@ -72,13 +124,10 @@ CLOSED: [2021-04-22 Thu 15:59]
 - State "DONE"       from "NEXT"       [2021-04-22 Thu 15:59]
 :END:
 #+begin_src js 
-  var showQuizzId = (id)=> (quizz) =>{
+  var showQuizzId = (id) => (quizz) =>{
       handleQuizzData(id)(quizz);
-      toggleQuizzLayout();
   };
   let handleQuizzData = id => data => populate(data)(id); 
-                                 // populateWithId(data);
-                                 // focus();
 #+end_src
 ***** DONE Populate function reciving worked out data
 CLOSED: [2021-04-22 Thu 18:20]
@@ -913,6 +962,5 @@ CLOSED: [2021-04-21 Wed 13:20]
       color: #818181;
   }
 #+end_src
-
 
 ** Layout3

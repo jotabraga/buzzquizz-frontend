@@ -11,7 +11,7 @@ var images = querierAll("div.quizz.screen2#q1 div.img"); //=> element
 var fruitList = ["banana","apple","kiwi"];
 var moreFruitsList = ["pineapple","orange","watermelon"];
 
-var quizzApi = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/";
+const quizzApi = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/";
 let handleQuizz = api => id =>
     {let quizz = axios.get(api);
      let showQuizz = showQuizzId(id); 
@@ -22,13 +22,10 @@ let handleQuizz = api => id =>
 handleQuizz(quizzApi);
 var errorHandle = quizz => console.log(quizz);
 
-var showQuizzId = (id)=> (quizz) =>{
+var showQuizzId = (id) => (quizz) =>{
     handleQuizzData(id)(quizz);
-    toggleQuizzLayout();
 };
-let handleQuizzData = id => data => populate(data)(id); 
-                               // populateWithId(data);
-                               // focus();
+let handleQuizzData = id => data => populate(data)(id);
 
 let createMsg = message => document.createTextNode(message);
 let appendMsgNode = e => nodeMessage => e.appendChild(nodeMessage);  
