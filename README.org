@@ -19,6 +19,110 @@ In =code= we find our code-base. And, in =resources= we store images, icons, fon
 ** Layout 1
 Worked out in conjunction.
 
+*** JS
+#+begin_src js :tangle ./code/js/main-page.js 
+  let initPage = () => allQuizzes(quizzApi)(10);
+
+  let allQuizzes = api => number =>
+      {let quizz = axios.get(api);
+       let captureQuizzes = captureQuizzIds(number);
+       quizz.then(captureQuizzes);
+       quizz.catch(errorHandle);
+      };
+  var captureQuizzIds = number => quizz =>{
+      handleQuizzesDatas(number)(quizz);
+  };
+
+  let handleQuizzesDatas = number => quizzesData => populateAvalible(quizzesData)(number);
+  var populateAvalible = quizzesData => number => {
+      let listOfTemplates = fetchData(quizzesData)(number);
+      let quizzesDiv = querier('.quizzes');
+      listOfTemplates.forEach(template => populateWith(quizzesDiv)(template));
+      const quizzesClickable = querierAll('.quizz');
+      activateQuizzListeners(quizzesClickable);
+  };
+
+  let activateQuizzListeners = atomicQuizzDOM => {
+      atomicQuizzDOM.forEach((card) => {
+          card.addEventListener("click", apiRender);
+      });
+  };
+
+  let deactivateQuizzListeners = atomicQuizzDOM => {
+      atomicQuizzDOM.forEach((card) => {
+          card.removeEventListener("click", apiRender);
+      });
+  };
+
+  function apiRender(e) {
+      var allQuizzesRendered = Array.from(querierAll('.quizz'));
+      var allQuizzesId = idArray(allQuizzesRendered);
+      var cardServerId = allQuizzesId.indexOf(`${this.id}`);
+      const children = Array.from(this.parentElement.children);
+      children.forEach((card) => toggleOpacity(card));
+      handleQuizz(quizzApi)(cardServerId);
+      untoggleOpacity(this);
+      deactivateListeners(children);
+      setTimeout(scrollToQuizz, 2000);
+  };
+  var id = e => e.id;
+  var idArray = listElements => listElements.map(id);
+
+  var scrollToQuizz = () => {
+      const closestUl = querier('div.quizz-logo');
+      console.log(querier('div.quizz-logo'));
+      scroll(closestUl);
+  };
+
+  var fetchData = quizzesData => number =>{
+      let fetchedData = [];
+      let dataList = [];
+      quizzesData.data.forEach((quizz,i) => ((i<=number) ?
+                                             dataList.push(quizz) :
+                                             dataList));
+      dataList.forEach(dataObj => createTemplateIndex(dataObj)(fetchedData));
+      return fetchedData;
+  };
+
+  var createTemplateIndex = obj => emptyList =>
+      {let title = createTitleIndex(obj)('quizz');
+       emptyList.push(title);
+      };
+
+  var createTitleIndex = obj => titleClass => {
+      console.log(obj.id);
+      let div = createClassElement('div')(titleClass);
+      assignId(div)(obj.id);
+      let div2 = createClassElement('div')('quizz-image');
+      let div3 = createContentClassElement('div')(obj.title)('quizz-description');
+      changeBackground(div2)(obj.image);
+      populateWith(div2)(div3);
+      populateWith(div)(div2);
+      return div;
+  };
+
+  initPage();
+#+end_src
+
+*** HTML
+**** Clickable Quizzes
+#+begin_src html
+  <!-- quizz n1 -->
+  <div class="quizz">
+    <div class="quizz-image">
+      <div class="quizz-description">Teste: testando se a imagem fica com fundo degrade</div>
+    </div>
+  </div>
+  <!-- quizz n1 end -->
+
+  <!-- quizz n2 -->
+  <div class="quizz">
+    <div class="quizz-image">
+      <div class="quizz-description">Teste: testando se a imagem fica com fundo degrade</div>
+    </div>
+  </div>
+  <!-- quizz n2 end -->
+#+end_src
 ** Layout 2 
 LW
 *** JS
@@ -55,7 +159,7 @@ CLOSED: [2021-04-21 Wed 22:12]
 - State "DONE"       from "NEXT"       [2021-04-21 Wed 22:12]
 :END:
 #+begin_src js 
-  var quizzApi = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/";
+  const quizzApi = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/";
   let handleQuizz = api => id =>
       {let quizz = axios.get(api);
        let showQuizz = showQuizzId(id); 
@@ -72,13 +176,10 @@ CLOSED: [2021-04-22 Thu 15:59]
 - State "DONE"       from "NEXT"       [2021-04-22 Thu 15:59]
 :END:
 #+begin_src js 
-  var showQuizzId = (id)=> (quizz) =>{
+  var showQuizzId = (id) => (quizz) =>{
       handleQuizzData(id)(quizz);
-      toggleQuizzLayout();
   };
   let handleQuizzData = id => data => populate(data)(id); 
-                                 // populateWithId(data);
-                                 // focus();
 #+end_src
 ***** DONE Populate function reciving worked out data
 CLOSED: [2021-04-22 Thu 18:20]
@@ -98,6 +199,7 @@ CLOSED: [2021-04-21 Wed 22:12]
   let assignClass = e => c => e.classList.add(c);
   var tupleObj = obj => Object.entries(obj);
   var takeDataId = obj => id => obj.data[id];
+  var takeDataIdServer = obj => id => obj.data.id;
   var changeColor = obj => colorValue => {return obj.style.color = colorValue;};
   var changeBackground = obj => url =>
       {return obj.style.backgroundImage = `url(${url})`;};
@@ -367,7 +469,7 @@ CLOSED: [2021-04-22 Thu 18:18]
              e.forEach(e => populateWith(querier('ul'))(e)) :
              e.forEach(e => populateWith(querier('div.quizzes.screen2'))(e))):
             populateWith(body)(e)));
-       const cards = document.querySelectorAll("div.quizz.screen2 div.img");
+       const cards = querierAll("div.quizz.screen2 div.img");
        activateListeners(cards);
       };
 #+end_src
@@ -397,10 +499,6 @@ CLOSED: [2021-04-20 Tue 22:09]
 - State "DONE"       from "NEXT"       [2021-04-20 Tue 22:09]
 :END:
 #+begin_src js
-  // cards.forEach((card) => {
-  //     card.addEventListener("click", selectCard);
-  // });
-
   let activateListeners = atomicQuizzDOM => {
       atomicQuizzDOM.forEach((card) => {
           card.addEventListener("click", selectCard);
@@ -465,7 +563,6 @@ In plain English, as the function receives an element (a query selected one), it
 3. Untoggles the selected card.
 4. Deactivate the Listeners, thus locking the card selection.
 5. Scroll to the next card.
-# let focus = () => querier('#last').scrollIntoView();  
 #+begin_src js
   function selectCard(e) {
       const closestLi = this.closest('li').nextElementSibling;
@@ -913,6 +1010,5 @@ CLOSED: [2021-04-21 Wed 13:20]
       color: #818181;
   }
 #+end_src
-
 
 ** Layout3

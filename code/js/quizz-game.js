@@ -11,7 +11,7 @@ var images = querierAll("div.quizz.screen2#q1 div.img"); //=> element
 var fruitList = ["banana","apple","kiwi"];
 var moreFruitsList = ["pineapple","orange","watermelon"];
 
-var quizzApi = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/";
+const quizzApi = "https://mock-api.bootcamp.respondeai.com.br/api/v2/buzzquizz/quizzes/";
 let handleQuizz = api => id =>
     {let quizz = axios.get(api);
      let showQuizz = showQuizzId(id); 
@@ -22,13 +22,10 @@ let handleQuizz = api => id =>
 handleQuizz(quizzApi);
 var errorHandle = quizz => console.log(quizz);
 
-var showQuizzId = (id)=> (quizz) =>{
+var showQuizzId = (id) => (quizz) =>{
     handleQuizzData(id)(quizz);
-    toggleQuizzLayout();
 };
-let handleQuizzData = id => data => populate(data)(id); 
-                               // populateWithId(data);
-                               // focus();
+let handleQuizzData = id => data => populate(data)(id);
 
 let createMsg = message => document.createTextNode(message);
 let appendMsgNode = e => nodeMessage => e.appendChild(nodeMessage);  
@@ -37,6 +34,7 @@ let assignId = e => identity => e.id = `${identity}`;
 let assignClass = e => c => e.classList.add(c);
 var tupleObj = obj => Object.entries(obj);
 var takeDataId = obj => id => obj.data[id];
+var takeDataIdServer = obj => id => obj.data.id;
 var changeColor = obj => colorValue => {return obj.style.color = colorValue;};
 var changeBackground = obj => url =>
     {return obj.style.backgroundImage = `url(${url})`;};
@@ -230,15 +228,11 @@ var populate = obj => id =>
            e.forEach(e => populateWith(querier('ul'))(e)) :
            e.forEach(e => populateWith(querier('div.quizzes.screen2'))(e))):
           populateWith(body)(e)));
-     const cards = document.querySelectorAll("div.quizz.screen2 div.img");
+     const cards = querierAll("div.quizz.screen2 div.img");
      activateListeners(cards);
     };
 
 // const cards = document.querySelectorAll("div.quizz.screen2 div.img");
-
-// cards.forEach((card) => {
-//     card.addEventListener("click", selectCard);
-// });
 
 let activateListeners = atomicQuizzDOM => {
     atomicQuizzDOM.forEach((card) => {
