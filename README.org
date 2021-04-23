@@ -39,6 +39,11 @@ Here we define these in a functional way, and give an example code.
   var images = querierAll("div.quizz.screen2#q1 div.img"); //=> element
   // listen(images[1])("click")(hello);
 #+end_src
+***** Some constants
+#+begin_src js
+var fruitList = ["banana","apple","kiwi"];
+var moreFruitsList = ["pineapple","orange","watermelon"];
+#+end_src
 **** DONE Populate with atomic-quizzes
 CLOSED: [2021-04-22 Thu 14:07]
 :LOGBOOK:
@@ -61,7 +66,11 @@ CLOSED: [2021-04-21 Wed 22:12]
   handleQuizz(quizzApi);
   var errorHandle = quizz => console.log(quizz);
 #+end_src
-***** Manage the data of a single quizz
+***** DONE Manage the data of a single quizz
+CLOSED: [2021-04-22 Thu 15:59]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 15:59]
+:END:
 #+begin_src js 
   var showQuizzId = (id)=> (quizz) =>{
       handleQuizzData(id)(quizz);
@@ -71,7 +80,11 @@ CLOSED: [2021-04-21 Wed 22:12]
                                  // populateWithId(data);
                                  // focus();
 #+end_src
-***** Populate function reciving worked out data
+***** DONE Populate function reciving worked out data
+CLOSED: [2021-04-22 Thu 18:20]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 18:20]
+:END:
 ****** DONE Helper Functions
 CLOSED: [2021-04-21 Wed 22:12]
 :LOGBOOK:
@@ -122,8 +135,9 @@ CLOSED: [2021-04-22 Thu 15:40]
 #+end_src
 
 ****** DONE Use dataObj from api, and make a usable format for populating the html.
-CLOSED: [2021-04-22 Thu 15:40]
+CLOSED: [2021-04-22 Thu 18:19]
 :LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 18:19]
 - State "DONE"       from "NEXT"       [2021-04-22 Thu 15:40]
 :END:
 #+begin_src js
@@ -137,21 +151,31 @@ CLOSED: [2021-04-22 Thu 15:40]
        emptyList.push(container);
        let quizz = createQuizz(obj);
        emptyList.push(quizz);
+       let score = createScore(obj)('score');
+       emptyList.push(score);
       };
  #+end_src
 
-*******  Template the main header (quizz-title and background image)
+******* DONE Template the main header (quizz-title and background image)
+CLOSED: [2021-04-22 Thu 18:19]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 18:19]
+:END:
 #+begin_src js
-        var createTitle = obj => titleClass => {
-             let div = createClassElement('div')(titleClass);
-             let h1 = createContentElement('h1')(obj.title);
-             populateWith(div)(h1);
-             changeBackground(div)(obj.image);
-             return div;
-         };
+  var createTitle = obj => titleClass => {
+      let div = createClassElement('div')(titleClass);
+      let h1 = createContentElement('h1')(obj.title);
+      populateWith(div)(h1);
+      changeBackground(div)(obj.image);
+      return div;
+  };
  #+end_src
 
-******* Template for the container of atomic-quizzes
+******* DONE Template for the container of atomic-quizzes
+CLOSED: [2021-04-22 Thu 18:19]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 18:19]
+:END:
 #+begin_src js
   var createQuizzes = obj => titleClass => {
       let div = createClassElement('div')(titleClass);
@@ -175,8 +199,12 @@ CLOSED: [2021-04-22 Thu 15:40]
       populateWith(li)(div);
   };
 
+  var random = max => Math.floor((Math.random() * max));
   var populateImages = container => anwser => {
       let div = createClassElement('div')('img');
+      (anwser.isCorretAnswer === "true" ?
+       assignId(div)(fruitList[random(3)]) :
+       assignId(div)(moreFruitsList[random(3)]));
       let img = createImg(anwser.image);
       let h2 = createContentElement('h2')(anwser.text);
       populateWith(div)(img);
@@ -185,7 +213,11 @@ CLOSED: [2021-04-22 Thu 15:40]
   };
 #+end_src
 
-******* Template for the Atomic-quizz 
+******* DONE Template for the Atomic-quizz 
+CLOSED: [2021-04-22 Thu 18:19]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 18:19]
+:END:
 #+begin_src js
   var createQuizz = obj => {
       let newList = [];
@@ -206,6 +238,54 @@ CLOSED: [2021-04-22 Thu 15:40]
       });
       return newList;
   };
+#+end_src
+
+******* DONE Template for the Score Page
+CLOSED: [2021-04-22 Thu 18:19]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 18:19]
+:END:
+#+begin_src js
+  var createScore = obj => titleClass => {
+      let newList = [];
+
+      obj.levels.forEach((l,i) =>{
+          let div = createClassElement('div')(titleClass);
+          let h1 = createContentElement('h1')(l.title);
+          addClass(div)('hidde-page');
+          assignId(div)(`level${i}`);
+          assignId(div)(l.minValue);
+          populateWith(div)(h1);
+
+          let div2 = createClassElement('div')(`result${i}`);
+          addClass(div2)('screen2');
+          addClass(div2)('quizz');
+          populateImagesScore(div2)(l);
+          populateWith(div)(div2);
+
+          let button1 = createContentClassElement('button')('Restart Quizz')('restart');
+          let button2 = createContentClassElement('button')('Return Home')('home');
+          let div3 = createClassElement('div')('buttons');
+          populateWith(div3)(button1);
+          populateWith(div3)(button2);
+          populateWith(div)(div3);
+
+          newList.push(div);
+      });
+      return newList;
+  };
+
+  var populateImagesScore = container => anwser => {
+      let div = createClassElement('div')('img');
+      let img = createImg(anwser.image);
+      let div2 = createClassElement('div')('img');
+      let h2 = createContentElement('h2')(anwser.text);
+      populateWith(div)(img);
+      populateWith(div2)(h2);
+      populateWith(div)(div2);
+      populateWith(container)(div);
+  };
+
 #+end_src
 
 ****** Span creator with id (not used)
@@ -270,15 +350,22 @@ let createImg = url =>
     };
 #+end_src
 
-****** NEXT Populate
+****** DONE Populate
+CLOSED: [2021-04-22 Thu 18:18]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 18:18]
+:END:
 #+begin_src js
   let body = querier('body');
+  const compareLi = createElement('li');
   var populate = obj => id =>
       {let listTemplating = dataFromApiId(obj)(id);
        console.log(listTemplating);
        listTemplating.forEach(e =>
            (Array.isArray(e) ?
-            e.forEach(e => populateWith(querier('ul'))(e)) :
+            (e[0].nodeName === compareLi.nodeName ? 
+             e.forEach(e => populateWith(querier('ul'))(e)) :
+             e.forEach(e => populateWith(querier('div.quizzes.screen2'))(e))):
             populateWith(body)(e)));
        const cards = document.querySelectorAll("div.quizz.screen2 div.img");
        activateListeners(cards);
@@ -385,6 +472,8 @@ In plain English, as the function receives an element (a query selected one), it
       const children = Array.from(this.parentElement.children);
       children.forEach((card) => toggleOpacity(card));
       untoggleOpacity(this);
+      console.log(this);
+      console.log(closestLi);
       deactivateListeners(children);
       allSelectedP(querierAll('.card-border'))(closestLi);
   };
@@ -402,12 +491,13 @@ CLOSED: [2021-04-20 Tue 22:07]
 :LOGBOOK:
 - State "DONE"       from "NEXT"       [2021-04-20 Tue 22:07]
 :END:
-#+begin_src js
-  var allLi = querierAll('li');
-  var allSelectedP = selected => nextLi =>
+#+begin_src js 
+  var allSelectedP = selected => nextLi => {
+      var allLi = querierAll('li');
       (selected.length === allLi.length ?
        resultsLayout() :
        scrollNextElement(nextLi));
+  };
 #+end_src
 ***** DONE Scroll Next function
 CLOSED: [2021-04-20 Tue 22:07]
@@ -429,22 +519,74 @@ CLOSED: [2021-04-21 Wed 13:30]
 - State "DONE"       from "NEXT"       [2021-04-21 Wed 13:30]
 :END:
 #+begin_src js
-  // var
-  var ul = querier('ul');
-  var results = querier('.score');
-  var buttonRestart = querier('.buttons .restart'); 
-  var buttonHome = querier('.buttons .home'); 
   var resultsLayout = () => {
-      let hiddeQuizz = () => {addClass(ul)('hidde-page');
-                              removeClass(results)('hidde-page');
-                              scroll(results);
-                              listen(buttonRestart)('click')(restartPage);
-                              listen(buttonHome)('click')(showHome);
-                             };
-      setTimeout(hiddeQuizz, 2000);
+      var ul = querier('ul');
+      let quantityQuizzes = querierAll('.card-border').length;
+      const count = whichFruits();
+      var level = classify(count)(quantityQuizzes);
+      var results = querierAll('div.score')[level];
+      setTimeout(hiddeQuizz, 2000, ul, results);
   };
   var showHome = () => alert("TODO: toggle visibility to home layout");
 #+end_src
+****** DONE How many fruits belong to the right fruit bowl
+CLOSED: [2021-04-22 Thu 20:30]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 20:30]
+- State "DONE"       from "BACKLOG"    [2021-04-22 Thu 20:30]
+- State "DONE"       from "BACKLOG"    [2021-04-22 Thu 20:30]
+- State "DONE"       from "NEXT"       [2021-04-22 Thu 20:30]
+:END:
+#+begin_src js 
+  var whichFruits = () => {
+      let count = 0;
+      let selected = querierAll('.card-border');
+      selected.forEach(e => fruitBelongs(e.id)(count));
+      return count;
+  };
+
+  var belongs = element => set => set.includes(element);
+  var fruitBelongs = fruit => counter =>
+      (belongs(fruit)(fruitList) ?
+       (counter += 1) :
+       "does not belong in fruitList"
+      );
+#+end_src
+****** Classify test taker
+#+begin_src js
+  var classify = count => quantityQuizzes => {
+      let result = [];
+      let levels = allRanks();
+      let percentageFruits = Math.round(count/quantityQuizzes * 100)/100; 
+      levels.forEach((level, i) =>
+          ((percentageFruits <= level)?
+           (result.push(i)):
+           "not this level, still"));
+      console.log(result[0]);
+      return result[0];
+  }; 
+
+  var allRanks = () => {
+      let newList = [];
+      let scores = querierAll(".score.hidde-page");
+      scores.forEach(score => newList.push(score.id));
+      return newList;
+  }; 
+#+end_src
+
+****** Toggle quizz visibility and show result's page
+#+begin_src js 
+  let hiddeQuizz = (ul,results) => {
+      var buttonRestart = querier('.buttons .restart'); 
+      var buttonHome = querier('.buttons .home'); 
+      addClass(ul)('hidde-page');
+      removeClass(results)('hidde-page');
+      scroll(results);
+      listen(buttonRestart)('click')(restartPage);
+      listen(buttonHome)('click')(showHome);
+  };
+#+end_src
+
 ****** DONE Reinitialize (all atomic-)quizz(es).
 CLOSED: [2021-04-21 Wed 13:31]
 :LOGBOOK:
@@ -463,7 +605,6 @@ CLOSED: [2021-04-21 Wed 13:31]
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
   <!DOCTYPE html>
   <html lang="en">
-
   <head>
       <meta charset="UTF-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -471,9 +612,7 @@ CLOSED: [2021-04-21 Wed 13:31]
       <link rel="stylesheet" href="../css/reset.css" class="rel">
       <link rel="stylesheet" href="../css/styles.css" class="rel">
       <link href="../css/quizz.css" rel="stylesheet"/>
-
       <title>Taking the Quizz</title>
-
   </head>
 #+end_src
 
@@ -485,101 +624,89 @@ CLOSED: [2021-04-21 Wed 13:31]
         <p>BuzzQuizz</p>
     </div>
 #+end_src
-***** Quizz-logo header
-#+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
-  <!-- <div class="quizz-logo"> -->
-  <!--     <h1>Logo</h1> -->
-  <!-- </div> -->
-#+end_src
-
-***** Populate with question-quizzes 
-#+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
-  <!-- <div class="quizzes screen2"> -->
-  <!--     <ul> -->
-  <!--         <li id="quizz1"> -->
-  <!--             <\!-- begin first atomic-quizz -\-> -->
-  <!--             <h1>Some aleatory question</h1> -->
-  <!--             <div class="quizz screen2"> -->
-
-  <!--                 <div class="img" id="op1"> -->
-  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
-  <!--                     <h2>A horse</h2> -->
-  <!--                 </div> -->
-  <!--                 <div class="img" id="op2"> -->
-  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
-  <!--                     <h2>A horse</h2> -->
-  <!--                 </div> -->
-  <!--                 <div class="img" id="op3"> -->
-  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
-  <!--                     <h2>A horse</h2> -->
-  <!--                 </div> -->
-  <!--                 <div class="img" id="op4"> -->
-  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
-  <!--                     <h2>A horse</h2> -->
-  <!--                 </div> -->
-
-  <!--             </div> -->
-  <!--             <\!-- end first atomic-quizz -\-> -->
-  <!--         </li> -->
-
-  <!--         <li id="quizz2"> -->
-  <!--             <\!-- begin second atomic-quizz -\-> -->
-  <!--             <h1>Some aleatory question</h1> -->
-
-  <!--             <div class="quizz screen2"> -->
-
-  <!--                 <div class="img" id="op1"> -->
-  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
-  <!--                     <h2>A horse</h2> -->
-  <!--                 </div> -->
-  <!--                 <div class="img" id="op2"> -->
-  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
-  <!--                     <h2>A horse</h2> -->
-  <!--                 </div> -->
-  <!--                 <div class="img" id="op3"> -->
-  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
-  <!--                     <h2>A horse</h2> -->
-  <!--                 </div> -->
-  <!--                 <div class="img" id="op4"> -->
-  <!--                     <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
-  <!--                     <h2>A horse</h2> -->
-  <!--                 </div> -->
-
-  <!--             </div> -->
-  <!--             <\!-- end second atomic-quizz -\-> -->
-  <!--         </li> -->
-  <!--     </ul> -->
-
-  <!--     <div class="score hidde-page"> -->
-  <!--         <h1>This is your score</h1> -->
-  <!--         <div class="quizz screen2"> -->
-  <!--             <div class="img" id="op1"> -->
-  <!--                 <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" /> -->
-  <!--             </div> -->
-  <!--             <div class="img"> -->
-  <!--                 <h2>Pellentesque id nibh tortor, id aliquet lectus proin nibh -->
-  <!--                     nisl. Ullamcorper malesuada proin libero nunc, consequat -->
-  <!--                     interdum varius sit amet, mattis vulputate enim nulla -->
-  <!--                     aliquet porttitor lacus, luctus accumsan tortor? -->
-  <!--                 </h2> -->
-  <!--             </div> -->
-  <!--         </div> -->
-  <!--         <div class="buttons"> -->
-  <!--             <button class="restart">Restart Quizz</button> -->
-  <!--             <button class="home">Return Home</button> -->
-  <!--         </div> -->
-  <!--     </div> -->
-#+end_src
-***** Togglable score
-#+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
-  <!-- <div class="score hidden"></div> -->
-#+end_src
-
 ***** Foot (scripts)
 #+begin_src html :tangle ./code/html/screen2.html  :mkdirp yes
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="../js/quizz-game.js"></script>
   </body>
+#+end_src
+***** Old hand-written hmtl (to the record)
+#+begin_src html
+  <div class="quizzes screen2">
+    <ul>
+      <li id="quizz1">
+        <!-- begin first atomic-quizz -->
+        <h1>Some aleatory question</h1>
+        <div class="quizz screen2">
+
+          <div class="img" id="op1">
+            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+            <h2>A horse</h2>
+          </div>
+          <div class="img" id="op2">
+            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+            <h2>A horse</h2>
+          </div>
+          <div class="img" id="op3">
+            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+            <h2>A horse</h2>
+          </div>
+          <div class="img" id="op4">
+            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+            <h2>A horse</h2>
+          </div>
+
+        </div>
+        <!-- end first atomic-quizz -->
+      </li>
+
+      <li id="quizz2">
+        <!-- begin second atomic-quizz -->
+        <h1>Some aleatory question</h1>
+
+        <div class="quizz screen2">
+
+          <div class="img" id="op1">
+            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+            <h2>A horse</h2>
+          </div>
+          <div class="img" id="op2">
+            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+            <h2>A horse</h2>
+          </div>
+          <div class="img" id="op3">
+            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+            <h2>A horse</h2>
+          </div>
+          <div class="img" id="op4">
+            <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+            <h2>A horse</h2>
+          </div>
+
+        </div>
+        <!-- end second atomic-quizz -->
+      </li>
+    </ul>
+
+    <div class="score hidde-page">
+      <h1>This is your score</h1>
+      <div class="quizz screen2">
+        <div class="img" id="op1">
+          <img alt="" src="https://i.ytimg.com/vi/4c6YlDjMCzM/hqdefault.jpg" />
+        </div>
+        <div class="img">
+          <h2>Pellentesque id nibh tortor, id aliquet lectus proin nibh
+            nisl. Ullamcorper malesuada proin libero nunc, consequat
+            interdum varius sit amet, mattis vulputate enim nulla
+            aliquet porttitor lacus, luctus accumsan tortor?
+          </h2>
+        </div>
+      </div>
+      <div class="buttons">
+        <button class="restart">Restart Quizz</button>
+        <button class="home">Return Home</button>
+      </div>
+    </div>
 #+end_src
 *** CSS
 **** DONE Quizz-logo header (first requisite)
