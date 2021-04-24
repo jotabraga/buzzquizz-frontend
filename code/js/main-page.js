@@ -65,7 +65,6 @@ var scrollToCreate = (create) => {
     scroll(create);
 };
 
-
 let toggleOpacityCreate = card => {
     if (lastNode(card) !== null) {
         addClass(card)("hidden");

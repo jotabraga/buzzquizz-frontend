@@ -114,6 +114,14 @@ li:first-of-type {
     visibility: hidden;
 }
 
+.right {
+    color:#7FFF00;
+}
+
+.wrong{
+    color:#DC143C;
+}
+
 .score {
     position: absolute;
     top: 50%;
