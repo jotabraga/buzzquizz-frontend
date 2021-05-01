@@ -172,28 +172,6 @@ var populateImagesScore = container => anwser => {
     populateWith(container)(div);
 };
 
-let spanNodeId = id =>
-    {let span = createElement('span');
-     assignId(span)(id);
-     return span;
-    };
-let populateNode = node => content => appendMsgNode(node)(createMsg(content));
-let createContent = id => content =>
-    {let span = spanNodeId(id);
-     populateNode(span)(content);
-     return span;
-    };
-let spanNodeClass = c =>
-    {let span = createElement('span');
-     assignClass(span)(c);
-     return span;
-    };
-let createContentClass = c => content =>
-    {let span = spanNodeClass(c);
-     populateNode(span)(content);
-     return span;
-    };
-
 var createContentElement = elementType => content =>
     {let element = createElement(elementType);
      populateNode(element)(content);
@@ -209,6 +187,12 @@ var createClassElement = e => c => {
     addClass(element)(c);
     return element;
 };
+let createContentClass = c => content =>
+    {let span = spanNodeClass(c);
+     populateNode(span)(content);
+     return span;
+    };
+let populateNode = node => content => appendMsgNode(node)(createMsg(content));
 
 let imgUrl = img => url => img.src = url;
 let createImg = url =>
@@ -250,17 +234,19 @@ let addClass = e => c => e.classList.add(c);
 let removeClass = e => c => e.classList.remove(c);
 let lastNode = node => node.lastElementChild;
 
-let toggleOpacity = card => {
-    if (lastNode(card) !== null) {
-        addClass(card)("hidden-opacity");
-        addClass(lastNode(card))("hidden-name");
+let toggleOpacity = e => {
+    if (lastNode(e) !== null) {
+        addClass(e)("hidden-opacity");
+        addClass(lastNode(e))("hidden-name");
+        fruitBelongsToggle(e);
     }
 };
 
-let untoggleOpacity = (e) => {
+let untoggleOpacity = e => {
     addClass(e)("card-border");
     removeClass(e)("hidden-opacity");
     removeClass(lastNode(e))("hidden-name");
+    fruitBelongsUntoggle(lastNode(e));
 };
 
 function selectCard(e) {
@@ -273,6 +259,16 @@ function selectCard(e) {
     deactivateListeners(children);
     allSelectedP(querierAll('.card-border'))(closestLi);
 };
+
+var fruitBelongsToggle = fruit =>
+    (belongs(fruit)(fruitList) ?
+     addClass(fruit)('right') :
+     addClass(fruit)('wrong'));
+
+var fruitBelongsUntoggle = fruit =>
+    (belongs(fruit)(fruitList) ?
+     removeClass(fruit)('right') :
+     removeClass(fruit)('wrong'));
 
 var allSelectedP = selected => nextLi => {
     var allLi = querierAll('li');
@@ -335,10 +331,23 @@ let hiddeQuizz = (ul,results) => {
     var buttonRestart = querier('.buttons .restart'); 
     var buttonHome = querier('.buttons .home'); 
     addClass(ul)('hidde-page');
+    hideAll();
+    // removeClass(
     removeClass(results)('hidde-page');
     scroll(results);
     listen(buttonRestart)('click')(restartPage);
-    listen(buttonHome)('click')(showHome);
+    listen(buttonHome)('click')(restartPage);
+};
+
+var hideAll = () => {
+    let bodyList = Array.from(querier('body').children);
+    let name = e => createElement(e).nodeName;
+    bodyList.forEach(e =>
+        (((e.nodeName === name('script') || e.className === 'header') ||
+          (e.className === 'quizzes screen2')) ?
+         ('nothing') :
+         (addClass(e)('hidde-page'))
+        ));
 };
 
 var restartPage = () => location.reload();

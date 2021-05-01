@@ -56,11 +56,7 @@ let deactivateCreateListeners = atomicQuizzDOM => {
 };
 
 function createInterface(e) {
-    // console.log(this);
     var startLayout = querier('div.quizz-creation-screen');
-    // const parent = this.parentElement;
-    // console.log(children);
-    // children.forEach((card) => toggleOpacity(card));
     untoggleOpacityCreate(startLayout);
     deactivateCreateListeners(startLayout);
     setTimeout(scrollToCreate, 2000, startLayout);
@@ -69,18 +65,14 @@ var scrollToCreate = (create) => {
     scroll(create);
 };
 
-
 let toggleOpacityCreate = card => {
     if (lastNode(card) !== null) {
         addClass(card)("hidden");
-        // addClass(lastNode(card))("hidden-name");
     }
 };
 
 let untoggleOpacityCreate = (e) => {
-    // addClass(e)("card-border");
     removeClass(e)("hidden");
-    // removeClass(lastNode(e))("hidden-name");
 };
 
 var scrollToQuizz = () => {

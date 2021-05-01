@@ -20,6 +20,7 @@ body {
     left: 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.10), 0 6px 20px 0 rgba(0, 0, 0, 0.09);
     background-color: #EC362D;
+    z-index: 4;
 }
 
 .header p {
@@ -58,13 +59,13 @@ body {
     color: #EC362D;
 }
 
-.quizzes{
+.quizzes {
     width: 100%;
-    display:flex;
+    display: flex;
     flex-wrap: wrap;
 }
 
-.quizz{
+.quizz {
     margin-right: 15px;
     margin-bottom: 15px;
 }
@@ -100,14 +101,12 @@ body {
     word-wrap: break-word;
 }
 
-.hidden{
+.hidden {
     display: none;
 }
 
-ion-icon{
+ion-icon {
     font-size: 30px;
     color: #EC362D;
     margin-left: 188px;
 }
-
-

@@ -79,11 +79,7 @@ Worked out in conjunction.
   };
 
   function createInterface(e) {
-      // console.log(this);
       var startLayout = querier('div.quizz-creation-screen');
-      // const parent = this.parentElement;
-      // console.log(children);
-      // children.forEach((card) => toggleOpacity(card));
       untoggleOpacityCreate(startLayout);
       deactivateCreateListeners(startLayout);
       setTimeout(scrollToCreate, 2000, startLayout);
@@ -92,18 +88,14 @@ Worked out in conjunction.
       scroll(create);
   };
 
-
   let toggleOpacityCreate = card => {
       if (lastNode(card) !== null) {
           addClass(card)("hidden");
-          // addClass(lastNode(card))("hidden-name");
       }
   };
 
   let untoggleOpacityCreate = (e) => {
-      // addClass(e)("card-border");
       removeClass(e)("hidden");
-      // removeClass(lastNode(e))("hidden-name");
   };
 
   var scrollToQuizz = () => {
@@ -144,22 +136,13 @@ Worked out in conjunction.
 
 *** HTML
 **** Clickable Quizzes
+General layout of a quizz in the main menu.
 #+begin_src html
-  <!-- quizz n1 -->
   <div class="quizz">
     <div class="quizz-image">
       <div class="quizz-description">Teste: testando se a imagem fica com fundo degrade</div>
     </div>
   </div>
-  <!-- quizz n1 end -->
-
-  <!-- quizz n2 -->
-  <div class="quizz">
-    <div class="quizz-image">
-      <div class="quizz-description">Teste: testando se a imagem fica com fundo degrade</div>
-    </div>
-  </div>
-  <!-- quizz n2 end -->
 #+end_src
 ** Layout 2 
 LW
@@ -181,7 +164,11 @@ Here we define these in a functional way, and give an example code.
   var images = querierAll("div.quizz.screen2#q1 div.img"); //=> element
   // listen(images[1])("click")(hello);
 #+end_src
-***** Some constants
+***** DONE Some cryptography constants
+CLOSED: [2021-04-23 Fri 22:02]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-23 Fri 22:02]
+:END:
 #+begin_src js
 var fruitList = ["banana","apple","kiwi"];
 var moreFruitsList = ["pineapple","orange","watermelon"];
@@ -428,31 +415,6 @@ CLOSED: [2021-04-22 Thu 18:19]
 
 #+end_src
 
-****** Span creator with id (not used)
-#+begin_src js
-  let spanNodeId = id =>
-      {let span = createElement('span');
-       assignId(span)(id);
-       return span;
-      };
-  let populateNode = node => content => appendMsgNode(node)(createMsg(content));
-  let createContent = id => content =>
-      {let span = spanNodeId(id);
-       populateNode(span)(content);
-       return span;
-      };
-  let spanNodeClass = c =>
-      {let span = createElement('span');
-       assignClass(span)(c);
-       return span;
-      };
-  let createContentClass = c => content =>
-      {let span = spanNodeClass(c);
-       populateNode(span)(content);
-       return span;
-      };
-#+end_src
-
 ****** DONE Create any element with class and content
 CLOSED: [2021-04-21 Wed 17:21]
 :LOGBOOK:
@@ -475,6 +437,12 @@ CLOSED: [2021-04-21 Wed 17:21]
       addClass(element)(c);
       return element;
   };
+  let createContentClass = c => content =>
+      {let span = spanNodeClass(c);
+       populateNode(span)(content);
+       return span;
+      };
+  let populateNode = node => content => appendMsgNode(node)(createMsg(content));
 #+end_src
 ****** DONE Create img with url
 CLOSED: [2021-04-21 Wed 17:21]
@@ -574,17 +542,19 @@ CLOSED: [2021-04-21 Wed 10:39]
 :END:
 The condition of toggability is that the card have a header (subtitle explaining it)
 #+begin_src js 
-  let toggleOpacity = card => {
-      if (lastNode(card) !== null) {
-          addClass(card)("hidden-opacity");
-          addClass(lastNode(card))("hidden-name");
+  let toggleOpacity = e => {
+      if (lastNode(e) !== null) {
+          addClass(e)("hidden-opacity");
+          addClass(lastNode(e))("hidden-name");
+          fruitBelongsToggle(e);
       }
   };
 
-  let untoggleOpacity = (e) => {
+  let untoggleOpacity = e => {
       addClass(e)("card-border");
       removeClass(e)("hidden-opacity");
       removeClass(lastNode(e))("hidden-name");
+      fruitBelongsUntoggle(lastNode(e));
   };
 #+end_src
 
@@ -614,8 +584,22 @@ In plain English, as the function receives an element (a query selected one), it
   };
 #+end_src
 
-***** TODO Change text color, if selection is right or wrong
+***** DONE Change text color, if selection is right or wrong
+CLOSED: [2021-04-23 Fri 21:21]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-23 Fri 21:21]
+:END:
+#+begin_src js
+  var fruitBelongsToggle = fruit =>
+      (belongs(fruit)(fruitList) ?
+       addClass(fruit)('right') :
+       addClass(fruit)('wrong'));
 
+  var fruitBelongsUntoggle = fruit =>
+      (belongs(fruit)(fruitList) ?
+       removeClass(fruit)('right') :
+       removeClass(fruit)('wrong'));
+#+end_src
 **** DONE Check if all atomic-quizzes are selected and decide what to do next.
 CLOSED: [2021-04-20 Tue 22:09]
 :LOGBOOK:
@@ -687,7 +671,11 @@ CLOSED: [2021-04-22 Thu 20:30]
        "does not belong in fruitList"
       );
 #+end_src
-****** Classify test taker
+****** DONE Classify test taker
+CLOSED: [2021-04-23 Fri 21:21]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-23 Fri 21:21]
+:END:
 #+begin_src js
   var classify = count => quantityQuizzes => {
       let result = [];
@@ -709,16 +697,33 @@ CLOSED: [2021-04-22 Thu 20:30]
   }; 
 #+end_src
 
-****** Toggle quizz visibility and show result's page
+****** DONE Toggle quizz visibility and show result's page
+CLOSED: [2021-04-23 Fri 21:56]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-23 Fri 21:56]
+:END:
 #+begin_src js 
   let hiddeQuizz = (ul,results) => {
       var buttonRestart = querier('.buttons .restart'); 
       var buttonHome = querier('.buttons .home'); 
       addClass(ul)('hidde-page');
+      hideAll();
+      // removeClass(
       removeClass(results)('hidde-page');
       scroll(results);
       listen(buttonRestart)('click')(restartPage);
-      listen(buttonHome)('click')(showHome);
+      listen(buttonHome)('click')(restartPage);
+  };
+
+  var hideAll = () => {
+      let bodyList = Array.from(querier('body').children);
+      let name = e => createElement(e).nodeName;
+      bodyList.forEach(e =>
+          (((e.nodeName === name('script') || e.className === 'header') ||
+            (e.className === 'quizzes screen2')) ?
+           ('nothing') :
+           (addClass(e)('hidde-page'))
+          ));
   };
 #+end_src
 
@@ -731,9 +736,16 @@ CLOSED: [2021-04-21 Wed 13:31]
   var restartPage = () => location.reload();
 #+end_src
 
-***** TODO Categorize which level the user is ranked.
-***** TODO Back to home-page
-
+***** DONE Categorize which level the user is ranked.
+CLOSED: [2021-04-23 Fri 21:09]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-23 Fri 21:09]
+:END:
+***** DONE Back to home-page
+CLOSED: [2021-04-23 Fri 21:57]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-23 Fri 21:57]
+:END:
 *** HTML
 + I will use mainly the core header layout from index.html
 **** Header (imports and metadata)
@@ -1005,7 +1017,20 @@ CLOSED: [2021-04-21 Wed 10:42]
   }
 #+end_src
 
-***** TODO Right/Wrong Anwser (green/red h2)
+***** DONE Right/Wrong Anwser (green/red h2)
+CLOSED: [2021-04-23 Fri 21:16]
+:LOGBOOK:
+- State "DONE"       from "NEXT"       [2021-04-23 Fri 21:16]
+:END:
+#+begin_src css :tangle ./code/css/quizz.css
+  .right {
+      color:#7FFF00;
+  }
+
+  .wrong{
+      color:#DC143C;
+  }
+#+end_src
 ***** DONE Score page
 CLOSED: [2021-04-21 Wed 13:20]
 :LOGBOOK:
