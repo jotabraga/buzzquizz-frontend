@@ -215,7 +215,6 @@ function getLevelsInfo(){
         const descriptionOfLevel = levelBox.children[4].value;
         const minPercentOfHits = parseInt(levelBox.children[2].value);
 
-
         const levelObj = {
             title: titleOfLevel,
             image: imageOfLevel,
